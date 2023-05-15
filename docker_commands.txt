@@ -1,0 +1,10 @@
+sudo docker build --tag django-project-docker-image .
+sudo docker run --publish 8001:9998 --name my-django-web-container django-project-docker-image (Host---> 8001 Port & Inside Container's Port 9998)
+sudo docker exec -it CONTAINER_ID /bin/bash
+
+
+# eksathe UP & BUILD dite hobe naile kaaj korbe Nah
+sudo docker-compose up --build (naile `DEPENDS_ON` property of docker-compose er ta kaaj kore Nah)
+
+#sudo docker-compose build
+#sudo docker-compose up

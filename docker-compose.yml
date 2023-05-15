@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  django_web_app:
+    build: .
+    # volumes:
+    #   - .:/django_app
+    ports:
+      - "8002:8002"
+    image: django_travello_docker_image:tag_travello_django
+    container_name: django_travello_container
+    command: python manage.py runserver 0.0.0.0:8002
+    networks:
+      - djnetwork
+    depends_on:
+      - travello_db
+  
+  travello_db: # Service NAME will also be used in DJANGO SETTINGS File
+    image: postgres
+    volumes:
+      # - ./data/db:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_DB=telusko_web_backend
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    container_name: postgres_travello_db_container
+    ports:
+      - 5437:5432  # - localhost_port:container_port
+    networks:
+      - djnetwork
+
+networks:
+  djnetwork:
+    driver: bridge
+
+volumes:
+  postgres_data:
