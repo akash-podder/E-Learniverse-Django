@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,6 +30,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+
+try:
+    load_dotenv(dotenv_path, verbose=True, override=True, encoding = 'utf_8')
+except UserWarning:
+    raise ImproperlyConfigured('.env file not found. Did you forget to add one?')
 
 # Application definition
 
@@ -89,13 +97,24 @@ WSGI_APPLICATION = 'django_docker_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'telusko_web_backend',
-        'USER' : 'postgres',
-        'PASSWORD' : 'postgres',
-        'HOST' : 'travello_db', # Service NAME in DOCKER-COMPOSE
-        'PORT': '5432'  # The port on which the PostgreSQL container is listening
+        'OPTIONS': {
+            'options': '-c search_path={}'.format(os.getenv('DEFAULT_DB_SCHEMA'))
+        },
+        'NAME': os.getenv('DEFAULT_DB_NAME'), #'telusko_web_backend',
+        'USER': os.getenv('DEFAULT_DB_USER'), #'postgres',
+        'PASSWORD': os.getenv('DEFAULT_DB_PASSWORD'), #'postgres',
+        'HOST': os.getenv('DEFAULT_DB_HOST'), #'travello_db', # Service NAME in DOCKER-COMPOSE
+        'PORT': os.getenv('DEFAULT_DB_PORT'), #'5432' # The port on which the PostgreSQL container is listening
+        'TEST': {
+            'NAME': 'travello_test',
+            'ENGINE': 'django.db.backends.sqlite3',
+        }
+
+
     }
 }
+
+
 
 
 # Password validation
