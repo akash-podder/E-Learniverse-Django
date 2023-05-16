@@ -1,4 +1,4 @@
 from django.shortcuts import render
 
-def home(request):
-    return render(request, 'index.html')
+def learn_flexbox(request):
+    return render(request, 'mainApp/learn-flexbox.html')

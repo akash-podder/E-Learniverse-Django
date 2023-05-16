@@ -24,7 +24,7 @@ def index(request):
     dests = Destination.objects.all()
     players = Player.objects.all()
 
-    return render(request, 'index.html', {'dests' : dests, 'players': players})
+    return render(request, 'travello/index.html', {'dests' : dests, 'players': players})
 
 def create_player_view(request):
     if request.method == 'POST':
@@ -35,7 +35,7 @@ def create_player_view(request):
     else:
         form = PlayerForm()
 
-    return render(request, 'create_player.html', {'form': form})
+    return render(request, 'travello/create_player.html', {'form': form})
 
 
 #  ************************** APIs ************************************
