@@ -18,13 +18,14 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import learn_flexbox
+from .views import learn_flexbox_horizontal,learn_flexbox_vertical
 
 urlpatterns = [
     path('', include('travello.urls')),
     path('calc', include('calc.urls')),
     path('admin/', admin.site.urls),
-    path('learn-flexbox', learn_flexbox),
+    path('learn-flexbox-horizontal', learn_flexbox_horizontal),
+    path('learn-flexbox-vertical', learn_flexbox_vertical),
 ]
 
 urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
