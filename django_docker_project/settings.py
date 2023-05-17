@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django_docker_project',
     'travello',
     'calc',
+    'flexbox_tutorial',
 ]
 
 MIDDLEWARE = [
