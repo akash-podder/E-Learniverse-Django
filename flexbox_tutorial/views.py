@@ -10,5 +10,6 @@ def learn_flexbox_vertical(request):
 
 class ShowFlexboxCodeView(View):
     view_name = 'show_flexbox_code'
-    def get(self, request, link_id):
-        return render(request, 'flexbox_tutorial/learn-flexbox-vertical.html')
+    def get(self, request, code_id):
+        code_str = "<div class=d-flex justify-content-start bg-dark " + code_id
+        return render(request, 'flexbox_tutorial/show-flexbox-code.html', {'code_str': code_str})
