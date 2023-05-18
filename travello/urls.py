@@ -1,5 +1,7 @@
-from django.urls import path
 from . import views
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.index, name = "index"),
@@ -18,3 +20,6 @@ urlpatterns = [
     path('api/player/<int:pk>', views.single_player_detail_api, name="api/single_player"),
     path('api/player/create', views.player_create, name="api/player_create"),
 ]
+
+urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+

@@ -14,17 +14,22 @@ from django.http import HttpResponse, JsonResponse
 
 # to Call Create Player we need to Bypass "CSRF" token... eijonno eita Import korlam
 from django.views.decorators.csrf import csrf_exempt
-
-
+from django.conf import settings
 
 # Create your views here.
 
 def index(request):
 
-    dests = FootballClub.objects.all()
+    clubs = FootballClub.objects.all()
     players = Player.objects.all()
 
-    return render(request, 'travello/index.html', {'dests' : dests, 'players': players})
+    context = {
+        'MEDIA_URL': settings.MEDIA_URL,
+        'clubs': clubs,
+        'players': players
+    }
+
+    return render(request, 'travello/index.html', context)
 
 def create_player_view(request):
     if request.method == 'POST':
@@ -57,9 +62,9 @@ def create_footballclub_view(request):
 # Returns Single Object
 def single_footballclub_detail_api(request, pk):
 
-    dest = FootballClub.objects.get(id = pk)
-    dest_serialized = DestinationSerializer(dest)
-    json_data = JSONRenderer().render(dest_serialized.data)
+    club = FootballClub.objects.get(id = pk)
+    club_serialized = DestinationSerializer(club)
+    json_data = JSONRenderer().render(club_serialized.data)
 
     return HttpResponse(json_data, content_type="application/json")
 
@@ -67,10 +72,10 @@ def single_footballclub_detail_api(request, pk):
 # QuerySet for All Destinations
 def all_footballclubs_detail_api(request):
 
-    dests = FootballClub.objects.all()
+    clubs = FootballClub.objects.all()
 
-    dest_serialized = DestinationSerializer(dests, many = True)  #QuerySet er jonno "many=True" eita likha Compolsory
-    json_data = JSONRenderer().render(dest_serialized.data)
+    club_serialized = DestinationSerializer(clubs, many = True)  #QuerySet er jonno "many=True" eita likha Compolsory
+    json_data = JSONRenderer().render(club_serialized.data)
 
     return HttpResponse(json_data, content_type="application/json")
 
