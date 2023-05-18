@@ -2,6 +2,12 @@
 
 {% block navbar_content %}
     <div class="container" style="background-color: green;color: white;">
-        {{code_str}}
+        {{code_str|linebreaksbr|safe}}
+
+        <h6 class="mt-4 mb-4">Demo of the Code</h6>
+        <div class="mx-4">
+            {{ code_str|safe }}
+        </div>
+
     </div>
 {% endblock %}

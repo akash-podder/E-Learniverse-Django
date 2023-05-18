@@ -2,12 +2,12 @@
 <!--{% include 'mainApp/navbar.html' with is_active=True message='Hello from parent template!' %}-->
 {% block navbar_content %}
 
-    <div class="container" style="background-color: green;color: white;">
+    <div class="container" style="background-color: green; color: white;">
         <h1>Horizontal Tutorial</h1>
         <h3>Horizontal use Justify Content</h3>
 
         <div class="mt-4"></div>
-        <h4>Default Flexbox (<a class="" href="{% url 'show_flexbox_code' 'akash'%}">Code</a>)</h4>
+        <h4>Default Flexbox (<a class="" style="color: red;" href="{% url 'show_flexbox_code' 'Default-Flexbox'%}">Code</a>)</h4>
         <div class="d-flex bg-dark">
             <div class="text-white p-2 bg-success">Item 1</div>
             <div class="text-white p-2 bg-primary">Item 2</div>
@@ -15,7 +15,7 @@
         </div>
 
         <div class="mt-4"></div>
-        <h4>Justify Content Center</h4>
+        <h4>Justify Content Center (<a style="color: red;" href="{% url 'show_flexbox_code' 'Justify-Content-Center'%}">Code</a>)</h4>
         <div class="d-flex justify-content-center bg-dark">
             <div class="text-white p-2 bg-success">Item 1</div>
             <div class="text-white p-2 bg-primary">Item 2</div>
@@ -23,7 +23,7 @@
         </div>
 
         <div class="mt-4"></div>
-        <h4>Justify Content Between</h4>
+        <h4>Justify Content Between (<a style="color: red;" href="{% url 'show_flexbox_code' 'Justify-Content-Between'%}">Code</a>)</h4>
         <div class="d-flex justify-content-between bg-dark">
             <div class="text-white p-2 bg-success">Item 1</div>
             <div class="text-white p-2 bg-primary">Item 2</div>
@@ -31,7 +31,7 @@
         </div>
 
         <div class="mt-4"></div>
-        <h4>Justify Content Around</h4>
+        <h4>Justify Content Around (<a style="color: red;" href="{% url 'show_flexbox_code' 'Justify-Content-Around'%}">Code</a>)</h4>
         <div class="d-flex justify-content-around bg-dark">
             <div class="text-white p-2 bg-success">Item 1</div>
             <div class="text-white p-2 bg-primary">Item 2</div>
@@ -39,13 +39,12 @@
         </div>
 
         <div class="mt-4"></div>
-        <h4>Justify Content Around+Order(3,1,2)</h4>
+        <h4>Justify Content Around+Order(3,1,2) (<a style="color: red;" href="{% url 'show_flexbox_code' 'Justify-Content-Around-Order'%}">Code</a>)</h4>
         <div class="d-flex justify-content-around bg-dark">
             <div class="text-white p-2 bg-success order-3">Item 1</div>
             <div class="text-white p-2 bg-primary order-1">Item 2</div>
             <div class="text-white p-2 bg-danger order-2">Item 3</div>
         </div>
-
 
         <!-- to have gap in the last -->
         <div class="mb-4"></div>

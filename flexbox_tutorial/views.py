@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views import View
+from .utils import FlexboxTutorialsUtils
 
 
 def learn_flexbox_horizontal(request):
@@ -11,5 +12,8 @@ def learn_flexbox_vertical(request):
 class ShowFlexboxCodeView(View):
     view_name = 'show_flexbox_code'
     def get(self, request, code_id):
-        code_str = "<div class=d-flex justify-content-start bg-dark " + code_id
-        return render(request, 'flexbox_tutorial/show-flexbox-code.html', {'code_str': code_str})
+        flexbox_tutorial_utils = FlexboxTutorialsUtils()
+        code_str = flexbox_tutorial_utils.getCodeFromFlexboxTutorialName(code_id)
+
+        context = {'code_str': code_str}
+        return render(request, 'flexbox_tutorial/show-flexbox-code.html', context)
