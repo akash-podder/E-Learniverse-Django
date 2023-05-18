@@ -1,13 +1,25 @@
 {% extends 'flexbox_tutorial/navbar.html'%}
+{% load static %}
 
 {% block navbar_content %}
-    <div class="container" style="background-color: green;color: white;">
-        {{code_str|linebreaksbr|safe}}
+    <div class="container" style="background-color: green; color: white;">
+        <div class="d-flex justify-content-between">
+            <div id="html_code">
+                {{code_str|linebreaksbr|safe}}
+            </div>
 
-        <h6 class="mt-4 mb-4">Demo of the Code</h6>
+            <div>
+                <button onclick="copyText()" style="background-color: orange; color: white;">Copy Text</button>
+            </div>
+            
+        </div>
+        <h6 class="mt-4">Demo of the Code</h6>
         <div class="mx-4">
             {{ code_str|safe }}
         </div>
+
+    <!--  JS Source to COPY from Clipboard Mechanism      -->
+    <script src="{% static 'js/flexbox_tutorial/copy_code.js' %}"></script>
 
     </div>
 {% endblock %}
