@@ -9,4 +9,4 @@ class FootballClubModelForm(forms.ModelForm):
 class PlayerModelForm(forms.ModelForm):
     class Meta:
         model = Player
-        fields = ['name', 'desc', 'country', 'price']
+        fields = ['name', 'img', 'desc', 'country', 'price']

@@ -32,7 +32,7 @@ def index(request):
 
 def create_player_view(request):
     if request.method == 'POST':
-        form = PlayerModelForm(request.POST)
+        form = PlayerModelForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('/')

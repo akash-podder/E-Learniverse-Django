@@ -3,7 +3,8 @@
 {% block content %}
 
     <h1>Create Player</h1>
-    <form method="post">
+    <!--enctype="multipart/form-data" nah dile FILE input hisave ney nah-->
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Submit</button>

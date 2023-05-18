@@ -14,7 +14,7 @@ class FootballClub(models.Model):
 class Player(models.Model):
 
     name = models.CharField(max_length=100)
-    img = models.ImageField(upload_to='pics/players/', blank=True)
+    img = models.ImageField(upload_to='pics/players/')
     desc = models.TextField()
     country = models.TextField()
     price = models.IntegerField(default=0)
