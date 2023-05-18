@@ -21,5 +21,3 @@ urlpatterns = [
     path('api/player/create', views.player_create, name="api/player_create"),
 ]
 
-urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
-

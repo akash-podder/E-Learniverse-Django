@@ -24,7 +24,6 @@ def index(request):
     players = Player.objects.all()
 
     context = {
-        'MEDIA_URL': settings.MEDIA_URL,
         'clubs': clubs,
         'players': players
     }
