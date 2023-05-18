@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Destination, Player
+from .models import FootballClub, Player
 
 class DestinationSerializer(serializers.Serializer):
 
@@ -14,7 +14,7 @@ class DestinationSerializer(serializers.Serializer):
 
     # This Function is used for "De-Serialization"
     def create(self, validated_data):
-        return Destination.objects.create(**validated_data)
+        return FootballClub.objects.create(**validated_data)
 
 
 

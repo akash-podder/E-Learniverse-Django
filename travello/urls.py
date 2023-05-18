@@ -4,13 +4,14 @@ from . import views
 urlpatterns = [
     path('', views.index, name = "index"),
     path('create/player', views.create_player_view, name = "create-player"),
+    path('create/footballclub', views.create_footballclub_view, name ="create-footballclub"),
 
 
 #  ***************** API Routes ******************
 
     # Destination API
-    path('api/destinations', views.all_destination_detail_api, name = "api/destinations"),
-    path('api/destination/<int:pk>', views.single_destination_detail_api, name = "api/single_destination"),
+    path('api/footballclub', views.all_footballclubs_detail_api, name ="api/footballclubs"),
+    path('api/footballclub/<int:pk>', views.single_footballclub_detail_api, name ="api/single_footballclub"),
 
     # Player API
     path('api/players', views.all_player_detail_api, name="api/players"),

@@ -1,9 +1,9 @@
 from django import forms
-from .models import Destination, Player
+from .models import FootballClub, Player
 
-class DestinationModelForm(forms.ModelForm):
+class FootballClubModelForm(forms.ModelForm):
     class Meta:
-        model = Destination
+        model = FootballClub
         fields = ['name', 'img', 'desc', 'price', 'is_club_in_city']
 
 class PlayerModelForm(forms.ModelForm):

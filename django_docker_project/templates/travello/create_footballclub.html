@@ -2,8 +2,8 @@
 
 {% block content %}
 
-    <h1>Create Player</h1>
-    <form method="post">
+    <h1>Create Football Club</h1>
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Submit</button>

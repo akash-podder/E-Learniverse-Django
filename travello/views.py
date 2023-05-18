@@ -3,8 +3,8 @@ import io
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
-from .models import Destination, Player
-from .form import PlayerForm
+from .models import FootballClub, Player
+from .form import FootballClubModelForm, PlayerModelForm
 from .serializers import DestinationSerializer, PlayerSerializer
 
 from rest_framework.renderers import JSONRenderer
@@ -21,21 +21,32 @@ from django.views.decorators.csrf import csrf_exempt
 
 def index(request):
 
-    dests = Destination.objects.all()
+    dests = FootballClub.objects.all()
     players = Player.objects.all()
 
     return render(request, 'travello/index.html', {'dests' : dests, 'players': players})
 
 def create_player_view(request):
     if request.method == 'POST':
-        form = PlayerForm(request.POST)
+        form = PlayerModelForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('/')
     else:
-        form = PlayerForm()
+        form = PlayerModelForm()
 
     return render(request, 'travello/create_player.html', {'form': form})
+
+def create_footballclub_view(request):
+    if request.method == 'POST':
+        form = FootballClubModelForm(request.POST, request.FILES)  # request.FILES ---> eita MUST important. naile IMAGE Upload Hobe Nah
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    else:
+        form = FootballClubModelForm()
+
+    return render(request, 'travello/create_footballclub.html', {'form': form})
 
 
 #  ************************** APIs ************************************
@@ -44,9 +55,9 @@ def create_player_view(request):
 #  ***************** Destination APIs ******************
 
 # Returns Single Object
-def single_destination_detail_api(request, pk):
+def single_footballclub_detail_api(request, pk):
 
-    dest = Destination.objects.get(id = pk)
+    dest = FootballClub.objects.get(id = pk)
     dest_serialized = DestinationSerializer(dest)
     json_data = JSONRenderer().render(dest_serialized.data)
 
@@ -54,9 +65,9 @@ def single_destination_detail_api(request, pk):
 
 
 # QuerySet for All Destinations
-def all_destination_detail_api(request):
+def all_footballclubs_detail_api(request):
 
-    dests = Destination.objects.all()
+    dests = FootballClub.objects.all()
 
     dest_serialized = DestinationSerializer(dests, many = True)  #QuerySet er jonno "many=True" eita likha Compolsory
     json_data = JSONRenderer().render(dest_serialized.data)
