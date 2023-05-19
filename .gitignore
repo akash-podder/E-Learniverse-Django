@@ -86,6 +86,8 @@ target/
 __pycache__/
 local_settings.py
 
+**/__pycache__/
+
 .vscode
 .env
 /django_docker_project/.env
