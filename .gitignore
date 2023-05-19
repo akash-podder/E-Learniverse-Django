@@ -88,6 +88,7 @@ local_settings.py
 
 .vscode
 .env
+/django_docker_project/.env
 /.venv
 .idea
 static.tar.gz
