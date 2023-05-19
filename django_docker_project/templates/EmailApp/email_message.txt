@@ -1,0 +1,5 @@
+Hello Dear {{name|safe}},
+Here is a copy of your Review:
+{{review_message|safe}}
+
+Thank You!

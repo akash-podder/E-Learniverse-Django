@@ -2,7 +2,9 @@ import io
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.views.generic.edit import FormView
 
+from EmailApp.forms import ReviewForm
 from .models import FootballClub, Player
 from .form import FootballClubModelForm, PlayerModelForm
 from .serializers import DestinationSerializer, PlayerSerializer
@@ -18,6 +20,16 @@ from django.conf import settings
 
 # Create your views here.
 
+class IndexView(FormView):
+    template_name = 'index.html'
+    form_class = ReviewForm
+
+    def form_valid(self, form):
+        # Form er send_email function call dibo
+        form.send_email()
+        msg = "Thanks For the Review"
+        return HttpResponse(msg)
+
 def index(request):
 
     clubs = FootballClub.objects.all()
@@ -27,6 +39,17 @@ def index(request):
         'clubs': clubs,
         'players': players
     }
+
+    if request.method == 'POST':
+        email_review_form = ReviewForm(request.POST)
+        if email_review_form.is_valid():
+            email_review_form.send_email()
+            msg = "Thanks For the Review"
+            return HttpResponse(msg)
+    else:
+        email_review_form = ReviewForm()
+
+    context['email_form'] = email_review_form
 
     return render(request, 'travello/index.html', context)
 

@@ -5,4 +5,6 @@ sqlparse==0.4.3
 psycopg2-binary
 djangorestframework
 pillow
+celery==4.4.7
+django-celery-beat
 python-dotenv==0.10.3
