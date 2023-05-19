@@ -12,7 +12,7 @@ def send_review_email(name, email_address, email_subject, review_message):
         'review_message' : review_message,
     }
 
-    email_body = render_to_string('email_message.txt', context)
+    email_body = render_to_string('EmailApp/email_message.txt', context)
 
     email = EmailMessage(
         email_subject, email_body,

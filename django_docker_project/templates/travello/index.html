@@ -237,7 +237,6 @@
             </div>
 
             <div class="row">
-
                 <div class="col-lg-5 d-flex align-items-stretch">
                     <div class="info">
                         <div class="address">
@@ -264,13 +263,19 @@
 
                 </div>
 
-                <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
-                    <form action="{% url 'index' %}" method="POST" role="form" class="php-email-form">
-                        {% csrf_token %}
-                        {{email_form.as_p}}
-                        <button type="submit" value="Log-in">Send Email</button>
-                    </form>
-                </div>
+                {% if not email_sent_msg %}
+                    <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
+                        <form action="{% url 'index' %}" method="POST" role="form" class="php-email-form">
+                            {% csrf_token %}
+                            {{email_form.as_p}}
+                            <button type="submit" value="Log-in">Send Email</button>
+                        </form>
+                    </div>
+                {% else %}
+                    <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
+                        <h4>{{ email_sent_msg }}</h4>
+                    </div>
+                {% endif %}
 
             </div>
 

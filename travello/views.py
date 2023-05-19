@@ -45,7 +45,7 @@ def index(request):
         if email_review_form.is_valid():
             email_review_form.send_email()
             msg = "Thanks For the Review"
-            return HttpResponse(msg)
+            context['email_sent_msg'] = msg
     else:
         email_review_form = ReviewForm()
 
