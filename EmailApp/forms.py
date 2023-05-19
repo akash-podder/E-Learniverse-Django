@@ -2,8 +2,8 @@ from django import forms
 from .tasks import send_review_email_task
 
 class ReviewForm(forms.Form):
-    name = forms.CharField(label='Firstname', min_length=4, max_length=50, widget=forms.TextInput(
-        attrs={'class':'form-control mb-3', 'placeholder': 'Firstname', 'id': 'form-firstname'})
+    name = forms.CharField(label='Name', min_length=4, max_length=50, widget=forms.TextInput(
+        attrs={'class':'form-control mb-3', 'placeholder': 'Full Name', 'id': 'form-name'})
                            )
 
     email_address = forms.CharField(max_length=200, widget=forms.TextInput(

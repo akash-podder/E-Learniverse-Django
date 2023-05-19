@@ -1,4 +1,4 @@
-# Travello Flexbox Learning Backend
+# E-Learniverse Flexbox & Other Learning Backend
 Backend application for tallykhata app
 
 ## Installation guide
