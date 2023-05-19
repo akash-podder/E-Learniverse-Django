@@ -20,3 +20,9 @@ Docker-Compose Commands
 sudo docker-compose up --build
 sudo docker-compose run django_web_app python manage.py migrate
 ```
+
+### Celery guide
+Run the following command after installing Celery in Django Project
+```shell script
+celery -A django_docker_project worker --loglevel=info
+```
