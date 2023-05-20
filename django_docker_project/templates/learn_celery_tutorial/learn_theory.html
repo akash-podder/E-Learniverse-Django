@@ -1,0 +1,26 @@
+{% extends 'learn_celery_tutorial/navbar.html'%}
+<!--{% include 'mainApp/navbar.html' with is_active=True message='Hello from parent template!' %}-->
+
+{% load static %}
+{% block navbar_content %}
+
+    <div class="container" style="background-color: green; color: white;">
+        <h1>Learn Theory</h1>
+        <img src="{% static 'img/learn_celery_tutorial/Celery_Work_Flow.jpg' %}" alt="">
+
+        <p><b><i>Theory</i></b></p>
+        <p>
+            In Django, Celery routes are used to define how tasks are distributed and routed to different Celery workers. The routing configuration allows you to control which tasks are executed by which worker nodes in a distributed Celery setup.
+        </p>
+        <li>
+            Step-1
+        </li>
+        <li>
+            Step-2
+        </li>
+
+
+
+    </div>
+
+{% endblock %}

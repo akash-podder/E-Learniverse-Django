@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'travello',
     'calc',
     'flexbox_tutorial',
+    'learn_celery_tutorial',
     'EmailApp',
 ]
 

@@ -25,6 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('calc/', include('calc.urls')),
     path('flexbox-tutorial/', include('flexbox_tutorial.urls')),
+    path('learn-celery-tutorial/', include('learn_celery_tutorial.urls')),
     path('email/', include('EmailApp.urls')),
 ]
 
