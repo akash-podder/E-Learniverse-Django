@@ -3,8 +3,8 @@ version: "3.8"
 services:
   django_web_app:
     build: .
-    # volumes:
-    #   - .:/django_app
+    volumes:
+      - .:/django_app
     ports:
       - "8002:8002"
     image: django_travello_docker_image:tag_travello_django
@@ -14,6 +14,7 @@ services:
       - djnetwork
     depends_on:
       - travello_db
+      - rabbitmq_server
   
   travello_db: # Service NAME will also be used in DJANGO SETTINGS File
     image: postgres
@@ -27,6 +28,29 @@ services:
     container_name: postgres_travello_db_container
     ports:
       - 5437:5432  # - localhost_port:container_port
+    networks:
+      - djnetwork
+
+  celery_worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/django_app
+    image: celery_worker_docker_image:tag_travello_celery_worker
+    container_name: celery_worker_container
+    depends_on:
+      - rabbitmq_server
+    command: celery -A django_docker_project worker --loglevel=info
+    networks:
+      - djnetwork
+    
+
+  rabbitmq_server:
+    image: rabbitmq:3-management
+    ports:
+      - '5673:5672'
+      - '15673:15672'
     networks:
       - djnetwork
 
