@@ -31,9 +31,9 @@ services:
     networks:
       - djnetwork
 
-  celery_worker:
+  celery_worker: # Celery Worker will start in different Container which will connect to `RabbitMQ` Server which is defined as Service as `rabbitmq_server`
     build:
-      context: .
+      context: .rabbitmq_server
       dockerfile: Dockerfile
     volumes:
       - .:/django_app
@@ -46,10 +46,10 @@ services:
       - djnetwork
     
 
-  rabbitmq_server:
+  rabbitmq_server:  # Service NAME will also be used in DJANGO SETTINGS File as `CELERY_BROKER_URL`
     image: rabbitmq:3-management
     ports:
-      - '5673:5672'
+      - '5673:5672' # - localhost_port:container_port
       - '15673:15672'
     networks:
       - djnetwork
