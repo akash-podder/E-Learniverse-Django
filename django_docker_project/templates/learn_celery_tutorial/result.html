@@ -1,5 +1,37 @@
 {% extends 'base.html'%}
 
 {% block content %}
-    <h1>Result : {{result}}</h1>
+    <h1>Result</h1>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            function checkTaskStatus(taskId) {
+                $.ajax({
+                    url: 'check_task_status/',
+                    data: {'task_id': taskId},
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.status === 'SUCCESS') {
+                            $('#result').text(data.result);
+                        } else if (data.status === 'PENDING' || data.status === 'STARTED') {
+                            setTimeout(function() {
+                                checkTaskStatus(taskId);
+                            }, 1000);
+                        } else {
+                            $('#result').text('Task failed or unknown status');
+                        }
+                    },
+                    error: function() {
+                        $('#result').text('Error occurred while checking task status');
+                    }
+                });
+            }
+
+            var taskId = '{{ result }}';  // Get the task ID from the rendered context
+            checkTaskStatus(taskId);
+        });
+    </script>
+
+    <div id="result">Task in progress...</div>
+
 {% endblock %}

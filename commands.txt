@@ -1,2 +1,4 @@
 # To Start Celery in Django Project
 celery -A django_docker_project worker --loglevel=info
+
+celery -A django_docker_project worker -Q my_default_queue,custom_queue

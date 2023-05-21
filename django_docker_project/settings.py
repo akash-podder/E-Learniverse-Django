@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_celery_beat',
     'django_docker_project',
     'travello',
     'flexbox_tutorial',
@@ -155,12 +156,23 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'static')
 ]
 
+# CELERY Stuffs
+
+#   default
 # CELERY_BROKER_URL = 'redis://localhost:6379/0'
 # CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 
 CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL')
 CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND')
+CELERY_TASK_DEFAULT_QUEUE = os.getenv('CELERY_TASK_DEFAULT_QUEUE')
+CELERY_TASK_ROUTES = {
+    'learn_celery_tutorial.tasks.add_numbers': {
+        'queue': 'custom_queue',
+    },
+}
 
+
+# MEDIA & STATIC STUFF
 STATIC_ROOT = os.path.join(BASE_DIR,'assets')
 
 MEDIA_URL = '/media/'
