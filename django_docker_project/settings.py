@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_docker_project',
     'travello',
-    'calc',
     'flexbox_tutorial',
     'learn_celery_tutorial',
     'EmailApp',

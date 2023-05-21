@@ -4,13 +4,14 @@ from celery import shared_task
 from .emails import send_review_email
 from celery.utils.log import get_task_logger
 from celery.task import task
-from django.conf import settings
+
+# Logger Settings
+logger = get_task_logger(__name__)
 
 @shared_task
 def add(x, y):
+    logger.info("Numbers Added")
     return x+y
-
-logger = get_task_logger(__name__)
 
 @task(name = "send_review_email_task")
 def send_review_email_task(name, email_address, email_subject, review_message):

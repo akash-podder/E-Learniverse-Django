@@ -23,7 +23,6 @@ from .views import learn_flexbox_horizontal,learn_flexbox_vertical
 urlpatterns = [
     path('', include('travello.urls')),
     path('admin/', admin.site.urls),
-    path('calc/', include('calc.urls')),
     path('flexbox-tutorial/', include('flexbox_tutorial.urls')),
     path('learn-celery-tutorial/', include('learn_celery_tutorial.urls')),
     path('email/', include('EmailApp.urls')),
