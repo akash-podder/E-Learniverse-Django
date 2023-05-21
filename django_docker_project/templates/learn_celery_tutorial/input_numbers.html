@@ -1,0 +1,14 @@
+{% extends 'base.html'%}
+
+{% block content %}
+    <h1>Simple Calculator</h1>
+
+    <form action="{% url 'add_number' %}" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+<!--        Enter 1st number : <input type="number" name="num1"><br>-->
+<!--        Enter 2nd number : <input type="number" name="num2"><br>-->
+        <input type="submit">
+    </form>
+
+{% endblock %}
