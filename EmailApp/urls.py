@@ -17,5 +17,5 @@ from .views import ReviewEmailView
 from django.urls import path
 
 urlpatterns = [
-    path('', ReviewEmailView.as_view(), name="reviews"),
+    path('', ReviewEmailView.as_view(), name = ReviewEmailView.view_name),
 ]

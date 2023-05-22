@@ -2,6 +2,7 @@ import io
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.views import View
 from django.views.generic.edit import FormView
 
 from EmailApp.forms import ReviewForm
@@ -20,63 +21,67 @@ from django.conf import settings
 
 # Create your views here.
 
-class IndexView(FormView):
-    template_name = 'index.html'
-    form_class = ReviewForm
-
-    def form_valid(self, form):
-        # Form er send_email function call dibo
-        form.send_email()
-        msg = "Thanks For the Review"
-        return HttpResponse(msg)
-
-def index(request):
+class IndexView(View):
+    view_name = 'index'
 
     clubs = FootballClub.objects.all()
     players = Player.objects.all()
 
+    # this Context data is for BOTH POST & GET... that's why it is declared as CLASS Variable
+    # And to access it in functions one has to use `self.context`
     context = {
         'clubs': clubs,
         'players': players
     }
 
-    if request.method == 'POST':
+    def get(self, request):
+        email_review_form = ReviewForm()
+        self.context['email_form'] = email_review_form
+
+        return render(request, 'travello/index.html', self.context)
+    def post(self, request):
         email_review_form = ReviewForm(request.POST)
+
         if email_review_form.is_valid():
+            # Form er send_email function call dibo
             email_review_form.send_email()
             msg = "Thanks For the Review"
-            context['email_sent_msg'] = msg
-    else:
-        email_review_form = ReviewForm()
+            self.context['email_sent_msg'] = msg
+        else:
+            self.context['email_sent_msg'] = "Couldn't Send Email Due To Some Errors"
+        return render(request, 'travello/index.html', self.context)
 
-    context['email_form'] = email_review_form
 
-    return render(request, 'travello/index.html', context)
+class CreatePlayerView(View):
+    view_name = "create-player"
+    def get(self, request):
+        form = PlayerModelForm()
+        return render(request, 'travello/create_player.html', {'form': form})
 
-def create_player_view(request):
-    if request.method == 'POST':
+    def post(self, request):
         form = PlayerModelForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('/')
-    else:
-        form = PlayerModelForm()
+        else:
+            return render(request, 'travello/create_player.html', {'form': form})
 
-    return render(request, 'travello/create_player.html', {'form': form})
+class CreateFootballClubView(View):
+    view_name = "create-footballclub"
+    def get(self, request):
+        form = FootballClubModelForm()
+        return render(request, 'travello/create_footballclub.html', {'form': form})
 
-def create_footballclub_view(request):
-    if request.method == 'POST':
-        form = FootballClubModelForm(request.POST, request.FILES)  # request.FILES ---> eita MUST important. naile IMAGE Upload Hobe Nah
+    def post(self, request):
+        form = FootballClubModelForm(request.POST,
+                                        request.FILES)  # request.FILES ---> eita MUST important. naile IMAGE Upload Hobe Nah
         if form.is_valid():
             form.save()
             return redirect('/')
-    else:
-        form = FootballClubModelForm()
+        else:
+            return render(request, 'travello/create_footballclub.html', {'form': form})
 
-    return render(request, 'travello/create_footballclub.html', {'form': form})
-
-
-#  ************************** APIs ************************************
+#  **************************End APIs ************************************
 
 
 #  ***************** Destination APIs ******************
@@ -101,7 +106,7 @@ def all_footballclubs_detail_api(request):
 
     return HttpResponse(json_data, content_type="application/json")
 
-    # Dict chara onno kono Data pass korte  "safe=False" use korbo... eoikane "List" jacche tai "safe=False" likte huise JsonResponse ee
+    # Dict chara onno kono Data pass korte  "safe=False" use korbo... eikane "List" jacche tai "safe=False" likte huise JsonResponse ee
     # return  JsonResponse(dest_serialized.data, safe=False)  #eivabe 1 line ei "JsonResponse" amra direct Return korte pari
 
 

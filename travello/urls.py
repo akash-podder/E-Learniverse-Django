@@ -4,9 +4,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', views.index, name = "index"),
-    path('create/player', views.create_player_view, name = "create-player"),
-    path('create/footballclub', views.create_footballclub_view, name ="create-footballclub"),
+    path('', views.IndexView.as_view(), name = views.IndexView.view_name),
+    path('create/player', views.CreatePlayerView.as_view(), name = views.CreatePlayerView.view_name),
+    path('create/footballclub', views.CreateFootballClubView.as_view(), name = views.CreateFootballClubView.view_name),
 
 
 #  ***************** API Routes ******************

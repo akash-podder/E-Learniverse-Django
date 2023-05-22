@@ -7,6 +7,7 @@ from django.views.generic.edit import FormView
 
 class ReviewEmailView(FormView):
     # template_name = 'EmailApp/review.html'
+    view_name = "reviews"
     form_class = ReviewForm
 
     def form_valid(self, form):
