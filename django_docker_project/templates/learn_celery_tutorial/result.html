@@ -4,38 +4,13 @@
 {% block content %}
     <h1>Result</h1>
 
-    <div id="result">Task in progress...</div>
-
     <!-- Adding JQUERY in Project -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!--    <script src="{% static 'js/learn_celery_tutorial/update_result_to_html.js' %}"></script>-->
-
     <script>
-        $(document).ready(function() {
-            var taskId = '{{ result }}';  // Get the task ID from the rendered context
-            function checkTaskStatus(taskId) {
-                $.ajax({
-                    url: "check_task_status/",
-                    data: {'task_id': taskId},
-                    dataType: 'json',
-                    success: function(data) {
-                        if (data.status === 'SUCCESS') {
-                            $('#result').text(data.result);
-                        } else if (data.status === 'PENDING' || data.status === 'STARTED') {
-                            setTimeout(function() {
-                                checkTaskStatus(taskId);
-                            }, 1000);
-                        } else {
-                            $('#result').text('Task failed or unknown status');
-                        }
-                    },
-                    error: function() {
-                        $('#result').text('Error occurred while checking task status');
-                    }
-                });
-            }
-            checkTaskStatus(taskId);
-        });
-   </script>
+        var result = '{{result}}';
+    </script>
+    <script src="{% static 'js/learn_celery_tutorial/update_result_to_html.js' %}"></script>
+
+    <div id="result">Task in progress...</div>
 
 {% endblock %}
