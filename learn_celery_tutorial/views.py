@@ -2,17 +2,28 @@ from django.shortcuts import render
 from .tasks import add_numbers
 from django.http import JsonResponse
 from .forms import AddNumberForm
+from django.views import View
 
 # Create your views here.
-def learn_theory(request):
-    return render(request, 'learn_celery_tutorial/learn_theory.html')
-def configuration_steps(request):
-    return render(request, 'learn_celery_tutorial/configuration_steps.html')
 
-def add_number_using_celery_async(request):
-    form = AddNumberForm()
+class LearnTheoryView(View):
+    view_name = "learn_theory"
+    def get(self, request):
+        return render(request, 'learn_celery_tutorial/learn_theory.html')
 
-    if request.method == 'POST':
+class ConfigurationStepsView(View):
+    view_name = "learn_theory"
+    def get(self, request):
+        return render(request, 'learn_celery_tutorial/configuration_steps.html')
+
+
+class AddNumberCeleryTaskView(View):
+    view_name = "add_number"
+    def get(self, request):
+        form = AddNumberForm()
+        return render(request, 'learn_celery_tutorial/input_numbers.html', {'form': form})
+
+    def post(self, request):
         form = AddNumberForm(request.POST)
         if form.is_valid():
             num1 = form.cleaned_data['number1']
@@ -27,16 +38,14 @@ def add_number_using_celery_async(request):
             result = errors
             return render(request, 'learn_celery_tutorial/result.html', {'result': result})
 
-    # if request.GET we Load The Form
-    else:
-        return render(request, 'learn_celery_tutorial/input_numbers.html', {'form': form})
+class CheckTaskStatusView(View):
+    view_name = "check_task_status"
+    def get(self, request):
+        task_id = request.GET.get('task_id')
+        result = add_numbers.AsyncResult(task_id)
+        response_data = {'status': result.status}
 
-def check_task_status(request):
-    task_id = request.GET.get('task_id')
-    result = add_numbers.AsyncResult(task_id)
-    response_data = {'status': result.status}
+        if result.status == 'SUCCESS':
+            response_data['result'] = result.get()
 
-    if result.status == 'SUCCESS':
-        response_data['result'] = result.get()
-
-    return JsonResponse(response_data)
+        return JsonResponse(response_data)
