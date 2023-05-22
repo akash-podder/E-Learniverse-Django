@@ -1,13 +1,15 @@
-{% extends 'base.html'%}
+{% extends 'learn_celery_tutorial/navbar.html'%}
+<!--{% include 'mainApp/navbar.html' with is_active=True message='Hello from parent template!' %}-->
 
 {% load static %}
-{% block content %}
-    <h1>Simple Calculator</h1>
-
-    <form action="{% url 'add_number' %}" method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit">
-    </form>
+{% block navbar_content %}
+    <div class="container custom-style-container">
+        <h1>Simple Calculator</h1>
+        <form action="{% url 'add_number' %}" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit">
+        </form>
+    </div>
 
 {% endblock %}

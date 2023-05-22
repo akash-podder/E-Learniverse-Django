@@ -1,16 +1,15 @@
-{% extends 'base.html'%}
-
+{% extends 'learn_celery_tutorial/navbar.html'%}
+<!--{% include 'mainApp/navbar.html' with is_active=True message='Hello from parent template!' %}-->
 {% load static %}
-{% block content %}
-    <h1>Result</h1>
-
-    <!-- Adding JQUERY in Project -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{% block navbar_content %}
     <script>
         var result = '{{result}}';
     </script>
     <script src="{% static 'js/learn_celery_tutorial/update_result_to_html.js' %}"></script>
 
-    <div id="result">Task in progress...</div>
+    <div class="container custom-style-container">
+        <h1>Result</h1>
+        <div id="result">Task in progress...</div>
+    </div>
 
 {% endblock %}

@@ -4,21 +4,76 @@
 {% load static %}
 {% block navbar_content %}
 
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
-    <div class="container" style="background-color: green; color: white;">
+    <link href="{% static 'css/learn_celery_tutorial/learn_celery_tutorial_main.css' %}" rel="stylesheet">
+    <div class="container custom-style-container">
         <h1>Configuration Steps</h1>
-        <pre style="background-color: #eee;
-                    border: 1px solid #999;
-                    display: block;">
-            <code>
-                // Your code goes here
-                const greeting = "Hello, World!";
-                console.log(greeting);
-            </code>
-        </pre>
-        
-        <!-- to have gap in the last -->
-        <div class="mb-4"></div>
+        <div>
+            <li>In requirements.txt add</li>
+            <pre>
+                <code>
+                    celery==4.4.7
+                    django-celery-beat
+                </code>
+            </pre>
+        </div>
+
+        <div>
+            <li>Create <b>`celery.py`</b> in Django’s Root Folder. Add following commands in it</li>
+            <pre>
+                <code>
+                    from __future__ import absolute_import
+                    import os
+                    from celery import Celery
+
+                    # set the default Django settings module for the 'celery' program.
+                    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_docker_project.settings')
+
+                    # this is the NAME which we have to Pass to instantiate `CELERY_WORKER`
+                    # Example : app = Celery('my_custom_project')
+                    # `CELERY_WORKER`: celery -A my_custom_project worker --loglevel=info
+
+                    app = Celery('django_docker_project')
+
+                    # - namespace='CELERY' means all celery-related configuration keys
+                    #   should have a `CELERY_` prefix.
+
+                    app.config_from_object('django.conf:settings', namespace='CELERY')
+
+                    app.autodiscover_tasks()
+                </code>
+            </pre>
+        </div>
+
+        <div>
+            <li>In Django’s Root Folder file <b>`__init__.py`</b>. Add following:</li>
+            <pre>
+                <code>
+                    # This will make sure the app is always imported when
+                    # Django starts so that shared_task will use this app.
+                    from .celery import app as celery_app
+
+                    __all__ = ('celery_app',)
+
+                </code>
+            </pre>
+        </div>
+
+        <div>
+            <li>In Django’s <b>`settings.py`</b>. Add following:</li>
+            <pre>
+                <code>
+                    # CELERY_TASK_DEFAULT_QUEUE = 'celery'(by default)
+                    CELERY_TASK_DEFAULT_QUEUE = 'my_default_queue'
+                    # CELERY_BROKER_URL = 'amqp://guest:guest@localhost'(by default)
+                    CELERY_BROKER_URL = 'amqp://guest:guest@rabbitmq_server:5672//'
+                    CELERY_RESULT_BACKEND = 'rpc://'
+
+                    CELERY_BROKER_TRANSPORT_OPTIONS = {"max_retries": 0}
+                    CELERY_ENABLE_UTC = False
+                    CELERY_TIMEZONE = 'Asia/Dhaka'
+                </code>
+            </pre>
+        </div>
 
     </div>
 

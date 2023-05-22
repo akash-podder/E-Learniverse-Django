@@ -2,12 +2,14 @@
 
 {% block content %}
 
-    <h1>Create Player</h1>
-    <!--enctype="multipart/form-data" nah dile FILE input hisave ney nah-->
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit</button>
-    </form>
+    <div class="container custom-style-container">
+        <h1>Create Player</h1>
+        <!--enctype="multipart/form-data" nah dile FILE input hisave ney nah-->
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
 
 {% endblock %}

@@ -8,7 +8,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'django_docker_project.settings'
 # this is the NAME which we have to Pass to instantiate `CELERY_WORKER`
 # eikane jei NAME use korbo `CELERY_WORKER` invoke korar time sheita Argument hisave Pass korbo
 # Example : app = Celery('my_custom_project')
-# `CELERY_WORKER`: celery -A my_custom_project worker
+# `CELERY_WORKER`: celery -A my_custom_project worker --loglevel=info
 
 app = Celery('django_docker_project')
 
