@@ -1,13 +1,21 @@
 {% extends 'base.html'%}
 
+{% load static %}
 {% block content %}
     <h1>Result</h1>
+
+    <div id="result">Task in progress...</div>
+
+    <!-- Adding JQUERY in Project -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!--    <script src="{% static 'js/learn_celery_tutorial/update_result_to_html.js' %}"></script>-->
+
     <script>
         $(document).ready(function() {
+            var taskId = '{{ result }}';  // Get the task ID from the rendered context
             function checkTaskStatus(taskId) {
                 $.ajax({
-                    url: 'check_task_status/',
+                    url: "check_task_status/",
                     data: {'task_id': taskId},
                     dataType: 'json',
                     success: function(data) {
@@ -26,12 +34,8 @@
                     }
                 });
             }
-
-            var taskId = '{{ result }}';  // Get the task ID from the rendered context
             checkTaskStatus(taskId);
         });
-    </script>
-
-    <div id="result">Task in progress...</div>
+   </script>
 
 {% endblock %}
