@@ -18,6 +18,8 @@ def add_number_using_celery_async(request):
             num1 = form.cleaned_data['number1']
             num2 = form.cleaned_data['number2']
             result = add_numbers.delay(num1, num2)  # Trigger the task asynchronously
+            # result = add_numbers.apply_async(args=(num1, num2), queue='custom_queue')  # Trigger the task asynchronously
+
             return render(request, 'learn_celery_tutorial/result.html', {'result': result.id})
         else:
             # Form is not valid, render the form with errors

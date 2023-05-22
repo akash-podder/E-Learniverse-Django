@@ -26,3 +26,8 @@ Run the following command after installing Celery in Django Project
 ```shell script
 celery -A django_docker_project worker --loglevel=info
 ```
+
+`Custom Queue` Command of Celery Worker in Django Project
+```shell script
+celery -A django_docker_project worker -Q my_default_queue,custom_queue --loglevel=info
+```
