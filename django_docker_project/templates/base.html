@@ -75,9 +75,11 @@
             <!-- Uncomment below if you prefer to use an image logo -->
             <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
             <nav id="navbar" class="navbar">
+
                 {% block navbar_content %}
                     <!-- .navbar Headers will be DEFINED in this CONTENT-->
                 {% endblock %}
+
             </nav><!-- .navbar -->
         </div>
     </header><!-- End Header -->
@@ -86,6 +88,18 @@
     {% block content %}
     <!-- .navbar's CHILD will inherit this `content` in there HTML-->
     {% endblock %}
+
+
+
+    <!-- Vendor JS Files -->
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'vendor/glightbox/js/glightbox.min.js' %}"></script>
+    <script src="{% static 'vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
+    <!--<script src="{% static 'vendor/php-email-form/validate.js' %}"></script>-->
+
+    <!-- Template Main JS File -->
+    <script src="{% static 'js/main.js' %}"></script>
 
 </body>
 
