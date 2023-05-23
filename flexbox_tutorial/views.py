@@ -26,7 +26,7 @@ class ShowFlexboxCodeView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         flexbox_tutorial_utils = FlexboxTutorialsUtils()
-        code_id = self.kwargs.get('code_id')
+        code_id = self.kwargs.get('code_str_id')
         code_str = flexbox_tutorial_utils.getCodeFromFlexboxTutorialName(code_id)
 
         context['code_str'] = code_str
