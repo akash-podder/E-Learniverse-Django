@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from .tasks import add_numbers
+from .tasks import add_numbers_shared_task, number_counter_using_celery_beat_task
 from django.http import JsonResponse
 from .forms import AddNumberForm
 from django.views import View
+from django.core.cache import cache
 
 # Create your views here.
 
@@ -28,7 +29,7 @@ class AddNumberCeleryTaskView(View):
         if form.is_valid():
             num1 = form.cleaned_data['number1']
             num2 = form.cleaned_data['number2']
-            result = add_numbers.delay(num1, num2)  # Trigger the task asynchronously
+            result = add_numbers_shared_task.delay(num1, num2)  # Trigger the task asynchronously
             # result = add_numbers.apply_async(args=(num1, num2), queue='custom_queue')  # Trigger the task asynchronously
 
             return render(request, 'learn_celery_tutorial/result.html', {'result': result.id})
@@ -42,10 +43,25 @@ class CheckTaskStatusView(View):
     view_name = "check_task_status"
     def get(self, request):
         task_id = request.GET.get('task_id')
-        result = add_numbers.AsyncResult(task_id)
+        result = add_numbers_shared_task.AsyncResult(task_id)
         response_data = {'status': result.status}
 
         if result.status == 'SUCCESS':
             response_data['result'] = result.get()
 
         return JsonResponse(response_data)
+
+
+class NumberCounterPeriodicCeleryBeatScheduledTaskView(View):
+    view_name = "clock_scheduled"
+    def get(self, request):
+        task_result = number_counter_using_celery_beat_task.delay(7)
+
+        # Wait for the task to complete
+        task_result.wait()
+
+        # Retrieve the cache data
+        result = cache.get('custom_cache_key')
+        result = task_result.result
+
+        return render(request, 'learn_celery_tutorial/number_counter_celery_beat.html', {'result': result})

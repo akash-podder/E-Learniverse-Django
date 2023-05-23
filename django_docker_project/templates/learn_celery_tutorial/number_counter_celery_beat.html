@@ -1,0 +1,11 @@
+{% extends 'learn_celery_tutorial/navbar.html'%}
+<!--{% include 'mainApp/navbar.html' with is_active=True message='Hello from parent template!' %}-->
+{% load static %}
+{% block navbar_content %}
+
+    <div class="container custom-style-container">
+        <h1>Number Counter</h1>
+        <div id="result">{{result}}</div>
+    </div>
+
+{% endblock %}

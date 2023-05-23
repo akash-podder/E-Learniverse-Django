@@ -11,9 +11,11 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 import os
+from datetime import timedelta
 from pathlib import Path
 from dotenv import load_dotenv
 from django.core.exceptions import ImproperlyConfigured
+from celery.schedules import crontab
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -46,7 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_celery_beat',
+    'django_celery_beat', # `App` for `CELERY_BEAT`
     'django_docker_project',
     'travello',
     'flexbox_tutorial',
@@ -141,6 +143,12 @@ USE_I18N = True
 USE_TZ = True
 
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    }
+}
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
@@ -157,7 +165,6 @@ STATICFILES_DIRS = [
 ]
 
 # CELERY Stuffs
-
 #   default
 # CELERY_BROKER_URL = 'redis://localhost:6379/0'
 # CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
@@ -165,10 +172,23 @@ STATICFILES_DIRS = [
 CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL')
 CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND')
 CELERY_TASK_DEFAULT_QUEUE = os.getenv('CELERY_TASK_DEFAULT_QUEUE')
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 
 CELERY_TASK_ROUTES = ([
     ('learn_celery_tutorial.add_numbers', {'queue': 'custom_queue'}),
 ],)
+
+CELERY_BEAT_SCHEDULE = {
+    'number-counter-using-celery-beat': {
+        'task': 'learn_celery_tutorial.number_counter_using_celery_beat',
+        # 'schedule': crontab(minute='*/10'),
+        'schedule': timedelta(seconds=10),
+        'kwargs': {'number': 5},
+        # 'args': (3, 7),  # Example numbers to add
+        # 'kwargs': {'number1': 5, 'number2': 7},
+    },
+}
+
 
 # MEDIA & STATIC STUFF
 STATIC_ROOT = os.path.join(BASE_DIR,'assets')
