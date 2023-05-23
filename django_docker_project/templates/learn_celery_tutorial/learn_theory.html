@@ -4,23 +4,80 @@
 {% load static %}
 {% block navbar_content %}
 
+    <link href="{% static 'css/learn_celery_tutorial/learn_celery_tutorial_main.css' %}" rel="stylesheet">
+
     <div class="container custom-style-container">
         <h1>Learn Theory</h1>
         <img src="{% static 'img/learn_celery_tutorial/Celery_Work_Flow.jpg' %}" alt="">
 
         <div class="mt-4"></div>
-        <p><b><i>Theory</i></b></p>
+        <h3><b><u><i>Theory</i></u></b></h3>
         <div class="mt-4"></div>
 
         <p>
             In Django, Celery routes are used to define how tasks are distributed and routed to different Celery workers. The routing configuration allows you to control which tasks are executed by which worker nodes in a distributed Celery setup.
         </p>
-        <li>
-            Step-1
-        </li>
-        <li>
-            Step-2
-        </li>
+        <div>
+            <li>
+                Celery routes are defined in the Django settings file (`settings.py`) using the `CELERY_ROUTES` setting. This setting is a dictionary where the keys are the task names (task signatures) and the values are the names of the queues or routing keys to which the tasks should be routed.
+            </li>
+        </div>
+
+        <div>
+            <li>Here's an example of how you can configure Celery routes in Django in <b>`settings.py`</b>:</li>
+            <pre>
+                <code>
+                    CELERY_ROUTES = {
+                        'your_app.tasks.task_name': {
+                            'queue': 'your_queue_name',
+                        },
+                        'another_app.tasks.another_task': {
+                            'routing_key': 'your_routing_key',
+                        },
+                    }
+                </code>
+            </pre>
+        </div>
+
+        <div>
+            <li><b>Note: Celery routes are optional, and if you don't define any routes, Celery will use its default behavior to distribute tasks across available workers.</b></li>
+        </div>
+
+        <div>
+            <li><b>and Default Task Queue name is `celery`</b></li>
+        </div>
+
+        <div>
+            <li>Here's an example of how you can configure Celery routes in Django in <b>`settings.py`</b>:</li>
+            <pre>
+                <code>
+                    celery -A your_project_name worker -Q your_queue_name -n worker1@%h
+                    celery -A your_project_name worker -Q your_routing_key -n worker2@%h
+                </code>
+            </pre>
+        </div>
+
+        <div>
+            <li>In this example, two tasks are defined in the `CELERY_ROUTES` setting. The `'your_app.tasks.task_name'` task is routed to the `'your_queue_name'` queue, while the `'another_app.tasks.another_task'` task is routed based on the `'your_routing_key'` routing key.</li>
+        </div>
+
+        <div>
+            <li>By specifying the Celery routes, you can control the distribution of tasks to different queues or routing keys, and subsequently to different Celery workers. This allows you to scale and distribute the processing of tasks based on your application's requirements.</li>
+        </div>
+
+        <div>
+            <li>In the above example, two Celery workers are started:
+                <ol>
+                    <li class="numbered-class">The first worker is listening to the your_queue_name queue, and it is named worker1@%h. Replace your_project_name with the actual name of your Django project.</li>
+                    <li class="numbered-class">The second worker is listening to tasks with the your_routing_key routing key, and it is named worker2@%h.</li>
+                </ol>
+            </li>
+        </div>
+
+
+        <div>
+            <li>Remember to replace `'your_app.tasks.task_name'`, `'your_queue_name'`, `'another_app.tasks.another_task'`, and `'your_routing_key'` with the actual task names, queue names, and routing keys specific to your application.</li>
+        </div>
 
     </div>
 

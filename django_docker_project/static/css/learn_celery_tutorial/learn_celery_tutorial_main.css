@@ -3,3 +3,13 @@ pre {
     border: 1px solid #999;
     display: block;
 }
+
+ol {
+  counter-reset: item;
+  list-style-type: none;
+}
+
+li.numbered-class:before {
+  content: counter(item) ". ";
+  counter-increment: item;
+}

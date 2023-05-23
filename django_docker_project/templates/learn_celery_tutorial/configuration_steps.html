@@ -5,6 +5,7 @@
 {% block navbar_content %}
 
     <link href="{% static 'css/learn_celery_tutorial/learn_celery_tutorial_main.css' %}" rel="stylesheet">
+
     <div class="container custom-style-container">
         <h1>Configuration Steps</h1>
         <div>
@@ -71,6 +72,31 @@
                     CELERY_BROKER_TRANSPORT_OPTIONS = {"max_retries": 0}
                     CELERY_ENABLE_UTC = False
                     CELERY_TIMEZONE = 'Asia/Dhaka'
+                </code>
+            </pre>
+        </div>
+
+        <div>
+            <li>Also to add Task Routes & Queus. You need to add following in <b>`settings.py`</b></li>
+            <pre>
+                <code>
+                    CELERY_TASK_ROUTES = {
+                        'myapp.tasks.add_numbers': {'queue': 'priority'},
+                        'myapp.tasks.process_image': {'queue': 'image_processing'},
+                        'myapp.tasks.send_email': {'queue': 'default'},
+                        # Define more routing rules for other tasks
+                    }
+                </code>
+            </pre>
+        </div>
+
+        <div>
+            <li>To start Celery Workers, Start <b>`RabbitMQ`</b> first using Docker & then go to Terminal & add following commands.</li>
+            <pre>
+                <code>
+                    celery -A your_project worker --loglevel=info -Q my_default_queue
+                    celery -A your_project worker --loglevel=info -Q custom_queue_name
+                    celery -A your_project worker --loglevel=info -Q priority
                 </code>
             </pre>
         </div>
