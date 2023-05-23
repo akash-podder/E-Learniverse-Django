@@ -23,5 +23,5 @@ def number_counter_using_celery_beat_task(number):
     else:
         data = number
     # Update the cache
-    cache.set('custom_cache_key', data, timeout = None)
+    cache.set('custom_cache_key', data, timeout=360)
     return data

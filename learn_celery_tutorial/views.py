@@ -39,6 +39,19 @@ class AddNumberCeleryTaskView(View):
             result = errors
             return render(request, 'learn_celery_tutorial/result.html', {'result': result})
 
+class NumberCounterPeriodicCeleryBeatScheduledTaskView(View):
+    view_name = "clock_scheduled"
+    def get(self, request):
+        # task_result = number_counter_using_celery_beat_task.delay(7)
+        # Wait for the task to complete
+        # task_result.wait()
+        # result = task_result.result
+
+        # Retrieve the cache data
+        result = cache.get('custom_cache_key')
+
+        return render(request, 'learn_celery_tutorial/number_counter_celery_beat.html', {'result': result})
+
 class CheckTaskStatusView(View):
     view_name = "check_task_status"
     def get(self, request):
@@ -51,17 +64,10 @@ class CheckTaskStatusView(View):
 
         return JsonResponse(response_data)
 
+class GetCounterNumberFromCacheView(View):
+    view_name = "counter_number_from_cache"
 
-class NumberCounterPeriodicCeleryBeatScheduledTaskView(View):
-    view_name = "clock_scheduled"
     def get(self, request):
-        task_result = number_counter_using_celery_beat_task.delay(7)
-
-        # Wait for the task to complete
-        task_result.wait()
-
-        # Retrieve the cache data
         result = cache.get('custom_cache_key')
-        result = task_result.result
-
-        return render(request, 'learn_celery_tutorial/number_counter_celery_beat.html', {'result': result})
+        response_data = {'result': result}
+        return JsonResponse(response_data)
