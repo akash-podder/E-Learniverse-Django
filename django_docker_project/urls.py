@@ -25,6 +25,9 @@ urlpatterns = [
     path('flexbox-tutorial/', include('flexbox_tutorial.urls')),
     path('learn-celery-tutorial/', include('learn_celery_tutorial.urls')),
     path('email/', include('EmailApp.urls')),
+
+    # API Path of Travello
+    path('api/', include('travello.api_urls')),
 ]
 
 if settings.DEBUG:
