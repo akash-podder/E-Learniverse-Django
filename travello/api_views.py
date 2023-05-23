@@ -3,6 +3,8 @@ import io
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views import View
+from rest_framework.permissions import AllowAny
+from rest_framework.views import APIView
 from django.views.generic.edit import FormView
 
 from EmailApp.forms import ReviewForm
@@ -19,51 +21,71 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 
-#  ***************** Destination APIs ******************
+#  ***************** Football-Club APIs ******************
 
 # Returns Single Object
-def single_footballclub_detail_api(request, pk):
+class SingleFootballClubDetailApi(APIView):
+    authentication_classes = []  # No authentication required
+    permission_classes = [AllowAny]  # Allow access to all users, authenticated or not
 
-    club = FootballClub.objects.get(id = pk)
-    club_serialized = DestinationSerializer(club)
-    json_data = JSONRenderer().render(club_serialized.data)
+    api_name = "api/single_footballclub"
 
-    return HttpResponse(json_data, content_type="application/json")
+    def get(self, request, pk):
+        club = FootballClub.objects.get(id=pk)
+        club_serialized = DestinationSerializer(club)
+        json_data = JSONRenderer().render(club_serialized.data)
+
+        return HttpResponse(json_data, content_type="application/json")
 
 
-# QuerySet for All Destinations
-def all_footballclubs_detail_api(request):
+# QuerySet for All FootballClubs
+class AllFootballClubsDetailApi(APIView):
+    authentication_classes = []  # No authentication required
+    permission_classes = [AllowAny]  # Allow access to all users, authenticated or not
 
-    clubs = FootballClub.objects.all()
+    api_name = "api/footballclubs"
 
-    club_serialized = DestinationSerializer(clubs, many = True)  #QuerySet er jonno "many=True" eita likha Compolsory
-    json_data = JSONRenderer().render(club_serialized.data)
+    def get(self, request):
+        clubs = FootballClub.objects.all()
 
-    return HttpResponse(json_data, content_type="application/json")
+        club_serialized = DestinationSerializer(clubs, many=True)  # QuerySet er jonno "many=True" eita likha Compolsory
+        json_data = JSONRenderer().render(club_serialized.data)
 
-    # Dict chara onno kono Data pass korte  "safe=False" use korbo... eikane "List" jacche tai "safe=False" likte huise JsonResponse ee
-    # return  JsonResponse(dest_serialized.data, safe=False)  #eivabe 1 line ei "JsonResponse" amra direct Return korte pari
+        return HttpResponse(json_data, content_type="application/json")
+
+        # Dict chara onno kono Data pass korte  "safe=False" use korbo... eikane "List" jacche tai "safe=False" likte huise JsonResponse ee
+        # return  JsonResponse(dest_serialized.data, safe=False)  #eivabe 1 line ei "JsonResponse" amra direct Return korte pari
 
 #  ***************** Player APIs ******************
 
-def single_player_detail_api(request, pk):
 
-    player = Player.objects.get(id = pk)
-    player_serialized = PlayerSerializer(player)
-    json_data = JSONRenderer().render(player_serialized.data)
+class SinglePlayerDetailApi(APIView):
+    authentication_classes = []  # No authentication required
+    permission_classes = [AllowAny]  # Allow access to all users, authenticated or not
 
-    return HttpResponse(json_data, content_type="application/json")
+    api_name = "api/single_player"
+
+    def get(self, request, pk):
+        player = Player.objects.get(id=pk)
+        player_serialized = PlayerSerializer(player)
+        json_data = JSONRenderer().render(player_serialized.data)
+
+        return HttpResponse(json_data, content_type="application/json")
 
 
-def all_player_detail_api(request):
+class AllPlayersDetailApi(APIView):
+    authentication_classes = []  # No authentication required
+    permission_classes = [AllowAny]  # Allow access to all users, authenticated or not
 
-    players = Player.objects.all()
+    api_name = "api/players"
 
-    player_serialized = PlayerSerializer(players, many = True)
-    json_data = JSONRenderer().render(player_serialized.data)
+    def get(self, request):
+        players = Player.objects.all()
 
-    return HttpResponse(json_data, content_type="application/json")
+        player_serialized = PlayerSerializer(players, many=True)
+        json_data = JSONRenderer().render(player_serialized.data)
 
+        return HttpResponse(json_data, content_type="application/json")
 
 
 # it will now ByPass CSRF Token
