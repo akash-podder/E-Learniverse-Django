@@ -14,6 +14,8 @@ from .serializers import DestinationSerializer, PlayerSerializer
 
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
+from rest_framework.response import Response
+from rest_framework import status
 
 from django.http import HttpResponse, JsonResponse
 
@@ -49,8 +51,8 @@ class AllFootballClubsDetailApi(APIView):
         clubs = FootballClub.objects.all()
 
         club_serialized = DestinationSerializer(clubs, many=True)  # QuerySet er jonno "many=True" eita likha Compolsory
-        json_data = JSONRenderer().render(club_serialized.data)
 
+        json_data = JSONRenderer().render(club_serialized.data)
         return HttpResponse(json_data, content_type="application/json")
 
         # Dict chara onno kono Data pass korte  "safe=False" use korbo... eikane "List" jacche tai "safe=False" likte huise JsonResponse ee
@@ -73,7 +75,7 @@ class SinglePlayerDetailApi(APIView):
         return HttpResponse(json_data, content_type="application/json")
 
 
-class AllPlayersDetailApi(APIView):
+class AllPlayersApiView(APIView):
     authentication_classes = []  # No authentication required
     permission_classes = [AllowAny]  # Allow access to all users, authenticated or not
 
@@ -83,20 +85,31 @@ class AllPlayersDetailApi(APIView):
         players = Player.objects.all()
 
         player_serialized = PlayerSerializer(players, many=True)
+
         json_data = JSONRenderer().render(player_serialized.data)
-
         return HttpResponse(json_data, content_type="application/json")
+        # return JsonResponse(player_serialized.data, safe=False) #Above Two Lines can be written just by Using JsonResponse
 
+    def post(self, request):
+        player_serialized = PlayerSerializer(data=request.data)
+        if player_serialized.is_valid():
+            player_serialized.save()
+            return Response({'msg':'Data Created'}, status=status.HTTP_201_CREATED)
+        else:
+            return Response(player_serialized.errors, status=status.HTTP_400_BAD_REQUEST)
 
 # it will now ByPass CSRF Token
 @csrf_exempt
 def player_create(request):
     if request.method == 'POST':
         print("request is POST")
+        #==========Flow=============
+        # Json Data ---> Python Native Data(Dictionary) ---> Python Complex Data(Database Model Object)
+
         json_data = request.body
         stream = io.BytesIO(json_data)
-        player_pythonData = JSONParser().parse(stream)
-        player_serializer = PlayerSerializer(data=player_pythonData)
+        player_pythonData = JSONParser().parse(stream) # JSONParser work is to convert `Json Data` to `Python Native Data Type(Dictionary)`
+        player_serializer = PlayerSerializer(data=player_pythonData) # it Converts `Python Native Data Type(Dictionary)`to COMPLEX Data(Database MODEL Object)
 
         if player_serializer.is_valid():
             player_serializer.save()

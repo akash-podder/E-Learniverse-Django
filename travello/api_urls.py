@@ -10,7 +10,7 @@ urlpatterns = [
     path('footballclub/<int:pk>', SingleFootballClubDetailApi.as_view(), name = SingleFootballClubDetailApi.api_name),
 
     # Player API
-    path('players', AllPlayersDetailApi.as_view(), name= AllPlayersDetailApi.api_name),
+    path('players', AllPlayersApiView.as_view(), name= AllPlayersApiView.api_name),
     path('player/<int:pk>', SinglePlayerDetailApi.as_view(), name= SinglePlayerDetailApi.api_name),
     path('player/create', player_create, name="api/player_create"),
 ]
