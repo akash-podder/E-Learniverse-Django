@@ -92,6 +92,8 @@ local_settings.py
 .env
 /django_docker_project/.env
 /.venv
+*_venv/
+*venv/
 .idea
 static.tar.gz
 assets/
