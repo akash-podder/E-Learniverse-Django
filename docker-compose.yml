@@ -15,6 +15,7 @@ services:
     depends_on:
       - travello_db
       - rabbitmq_server
+      - redis_server
   
   travello_db: # Service NAME will also be used in DJANGO SETTINGS File
     image: postgres
@@ -31,10 +32,19 @@ services:
     networks:
       - djnetwork
 
+  redis_server:
+    image: redis:latest
+    container_name: redis_container
+    ports:
+      - 6380:6379  # - localhost_port:container_port
+    networks:
+      - djnetwork
+
   celery_worker: # Celery Worker will start in different Container which will connect to `RabbitMQ` Server which is defined as Service as `rabbitmq_server`
-    build:
-      context: .rabbitmq_server
-      dockerfile: Dockerfile
+#    build:
+#      context: .rabbitmq_server
+#      dockerfile: Dockerfile
+    build: .
     volumes:
       - .:/django_app
     image: celery_worker_docker_image:tag_travello_celery_worker
