@@ -8,6 +8,10 @@ $(document).ready(function(){
                 if(data.result == null){
                     console.log('Task failed or unknown status from CACHE');
                     $('#result').text('Task failed or unknown status from CACHE');
+                    console.log("celery BEAT application is NOT RUNNING or Cannot connected to Redis Server");
+//                    setTimeout(function() {
+//                        getNumberFromCache();
+//                    }, 3000);
                 }
                 else{
                     console.log("New Number = ", data.result);

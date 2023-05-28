@@ -12,3 +12,6 @@ sudo docker-compose run django_web_app python manage.py migrate
 
 #sudo docker-compose build
 #sudo docker-compose up
+
+#Start ****** Celery-BEAT ***** otherwise we can use `NUMBER_COUNTER` task
+#celery -A django_docker_project beat --loglevel=info

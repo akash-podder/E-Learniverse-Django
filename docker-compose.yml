@@ -54,6 +54,18 @@ services:
     command: celery -A django_docker_project worker --loglevel=info
     networks:
       - djnetwork
+
+  celery_beat: # Celery `BEAT` for PERIODIC Tasks Scheduled in Project
+    build: .
+    volumes:
+      - .:/django_app
+    image: celery_beat_docker_image:tag_celery_beat_travello
+    container_name: celery_beat_container
+    depends_on:
+      - rabbitmq_server
+    command: celery -A django_docker_project beat --loglevel=info
+    networks:
+      - djnetwork
     
 
   rabbitmq_server:  # Service NAME will also be used in DJANGO SETTINGS File as `CELERY_BROKER_URL`

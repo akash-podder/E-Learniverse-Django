@@ -187,8 +187,8 @@ CELERY_BEAT_SCHEDULE = {
     'number-counter-using-celery-beat': {
         'task': 'learn_celery_tutorial.number_counter_using_celery_beat',
         # 'schedule': crontab(minute='*/10'),
-        'schedule': timedelta(seconds=10),
-        'kwargs': {'number': 5},
+        'schedule': timedelta(seconds=6),
+        'kwargs': {'number': 6},
         # 'args': (3, 7),  # Example numbers to add
         # 'kwargs': {'number1': 5, 'number2': 7},
     },
