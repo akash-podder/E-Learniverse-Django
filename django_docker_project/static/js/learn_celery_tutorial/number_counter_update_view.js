@@ -6,8 +6,7 @@ $(document).ready(function(){
             dataType: 'json',
             success: function(data){
                 if(data.result == null){
-                    console.log('Task failed or unknown status from CACHE');
-                    $('#result').text('Task failed or unknown status from CACHE');
+                    $('#result').text('Task failed or unknown status from CACHE...See Console.log for Reason');
                     console.log("celery BEAT application is NOT RUNNING or Cannot connected to Redis Server");
 //                    setTimeout(function() {
 //                        getNumberFromCache();
