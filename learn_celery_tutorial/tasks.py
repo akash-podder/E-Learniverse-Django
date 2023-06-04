@@ -32,3 +32,8 @@ def one_time_task():
     # Task logic goes here
     logger.info("One-time task executed at ---> {}".format(datetime.now()))
     return "One-time task executed at ---> {}".format(datetime.now())
+
+@shared_task(name='learn_celery_tutorial.user_push_scheduled_celery_task')
+def user_push_scheduled_celery_task():
+    logger.info("User Pushed Celery Task is executed at ---> {}".format(datetime.now()))
+    return "User Pushed Celery Task is executed at ---> {}".format(datetime.now())

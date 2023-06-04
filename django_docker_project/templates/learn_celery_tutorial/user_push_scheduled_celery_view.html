@@ -1,0 +1,30 @@
+{% extends 'learn_celery_tutorial/navbar.html'%}
+<!--{% include 'mainApp/navbar.html' with is_active=True message='Hello from parent template!' %}-->
+
+{% load static %}
+{% block content %}
+    {% if result %}
+        <script>
+            var result = '{{result}}';
+        </script>
+
+        <!-- JS file to Update the Result Field by Calling AJAX Jquery   -->
+        <script src="{% static 'js/learn_celery_tutorial/update_result_to_html.js' %}"></script>
+
+        <div class="container custom-style-container">
+            <h1>Number Counter</h1>
+            <div id="result">{{result}}</div>
+        </div>
+
+    {% else %}
+    <div class="container custom-style-container">
+            <h1>Push a task in PeriodicTask DB</h1>
+            <form action="{% url 'user_push_scheduled_celery_task' %}" method="POST">
+                {% csrf_token %}
+    <!--            {{ form.as_p }}-->
+                <input type="submit" name="Custom Button" value="Push task in DB">
+            </form>
+        </div>
+    {% endif %}
+
+{% endblock %}

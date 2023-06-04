@@ -1,10 +1,12 @@
+from celery.result import AsyncResult
 from django.shortcuts import render
-from .tasks import add_numbers_shared_task, number_counter_using_celery_beat_task, one_time_task
+from .tasks import *
 from datetime import datetime, timedelta
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from .forms import AddNumberForm
 from django.views import View
 from django.core.cache import cache
+from django_celery_beat.models import CrontabSchedule, PeriodicTask, IntervalSchedule
 
 # Create your views here.
 
@@ -57,17 +59,53 @@ class OneTimeTaskView(View):
     view_name = "one_time_task"
     def get(self, request):
         # Calculate the desired execution time
-        execution_time = datetime.now() + timedelta(seconds=6)  # Example: 10 minutes from now
+        execution_time = datetime.now() + timedelta(seconds=6)  # Example: 6 seconds from now
 
         # Schedule the task to run at the desired time
         result = one_time_task.apply_async(eta=execution_time)
         one_time_task_context = "one-time-task"
+
         context = {
             'one_time_task_context': one_time_task_context,
             'result' : result
         }
 
         return render(request, 'learn_celery_tutorial/number_counter_celery_beat.html', context)
+
+class UserPushScheduledCeleryTask(View):
+    view_name = "user_push_scheduled_celery_task"
+    def get(self, request):
+        return render(request, 'learn_celery_tutorial/user_push_scheduled_celery_view.html')
+
+    def post(self, request):
+        try:
+            periodic_task = PeriodicTask.objects.get(name="User_Periodic_Task") # Task with the specified name found
+
+        except PeriodicTask.DoesNotExist:
+
+            # `PeriodicTask` Model table sobsomoy `IntervalSchedule` Object Argument hisave ney... eijonno ei Object ta Create kora lagtese
+            interval_schedule, _ = IntervalSchedule.objects.get_or_create(
+                every=int(6),
+                period=IntervalSchedule.SECONDS
+            )
+            # Create a new PeriodicTask object
+            periodic_task = PeriodicTask.objects.create(
+                name='User_Periodic_Task',
+                task='learn_celery_tutorial.user_push_scheduled_celery_task',
+                interval=interval_schedule,  # Set the task interval
+                enabled=True  # Enable the task
+            )
+            periodic_task.save()
+
+        # Get the result of the `periodic_task`
+        result = AsyncResult(periodic_task.id)
+
+        context = {
+            'result': result
+        }
+
+        return render(request, 'learn_celery_tutorial/user_push_scheduled_celery_view.html', context)
+
 
 class CheckTaskStatusView(View):
     view_name = "check_task_status"

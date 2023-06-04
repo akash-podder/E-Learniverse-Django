@@ -9,4 +9,5 @@ urlpatterns = [
     path('number-counter-periodic-scheduled-task', NumberCounterPeriodicCeleryBeatScheduledTaskView.as_view(),name = NumberCounterPeriodicCeleryBeatScheduledTaskView.view_name),
     path('get_counter_number_from_cache', GetCounterNumberFromCacheView.as_view(), name = GetCounterNumberFromCacheView.view_name),
     path('one-time-task', OneTimeTaskView.as_view(), name = OneTimeTaskView.view_name),
+    path('user_push_scheduled_celery_task', UserPushScheduledCeleryTask.as_view(), name = UserPushScheduledCeleryTask.view_name),
 ]
