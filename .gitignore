@@ -98,3 +98,4 @@ local_settings.py
 static.tar.gz
 assets/
 django_docker_project/templates/travello/index_old.html
+celerybeat.pid
