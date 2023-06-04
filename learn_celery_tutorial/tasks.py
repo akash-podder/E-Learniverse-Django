@@ -4,6 +4,7 @@ from celery import shared_task
 from celery.task import task
 from celery.utils.log import get_task_logger
 from django.core.cache import cache
+from datetime import datetime, timedelta
 
 # Logger Settings
 logger = get_task_logger(__name__)
@@ -25,3 +26,9 @@ def number_counter_using_celery_beat_task(number):
     # Update the cache
     cache.set('custom_cache_key', data, timeout=360)
     return data
+
+@shared_task
+def one_time_task():
+    # Task logic goes here
+    logger.info("One-time task executed at ---> {}".format(datetime.now()))
+    return "One-time task executed at ---> {}".format(datetime.now())

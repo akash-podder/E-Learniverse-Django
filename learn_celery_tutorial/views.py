@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from .tasks import add_numbers_shared_task, number_counter_using_celery_beat_task
+from .tasks import add_numbers_shared_task, number_counter_using_celery_beat_task, one_time_task
+from datetime import datetime, timedelta
 from django.http import JsonResponse
 from .forms import AddNumberForm
 from django.views import View
@@ -51,6 +52,22 @@ class NumberCounterPeriodicCeleryBeatScheduledTaskView(View):
         result = cache.get('custom_cache_key')
 
         return render(request, 'learn_celery_tutorial/number_counter_celery_beat.html', {'result': result})
+
+class OneTimeTaskView(View):
+    view_name = "one_time_task"
+    def get(self, request):
+        # Calculate the desired execution time
+        execution_time = datetime.now() + timedelta(seconds=6)  # Example: 10 minutes from now
+
+        # Schedule the task to run at the desired time
+        result = one_time_task.apply_async(eta=execution_time)
+        one_time_task_context = "one-time-task"
+        context = {
+            'one_time_task_context': one_time_task_context,
+            'result' : result
+        }
+
+        return render(request, 'learn_celery_tutorial/number_counter_celery_beat.html', context)
 
 class CheckTaskStatusView(View):
     view_name = "check_task_status"
