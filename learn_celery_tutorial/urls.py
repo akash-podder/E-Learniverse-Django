@@ -10,4 +10,5 @@ urlpatterns = [
     path('get_counter_number_from_cache', GetCounterNumberFromCacheView.as_view(), name = GetCounterNumberFromCacheView.view_name),
     path('one-time-task', OneTimeTaskView.as_view(), name = OneTimeTaskView.view_name),
     path('user_push_scheduled_celery_task', UserPushScheduledCeleryTask.as_view(), name = UserPushScheduledCeleryTask.view_name),
+    path('get_user_pushed_task_result', GetPeriodicTaskResult.as_view(), name = GetPeriodicTaskResult.view_name),
 ]

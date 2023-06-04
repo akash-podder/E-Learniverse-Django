@@ -5,6 +5,7 @@ from celery.task import task
 from celery.utils.log import get_task_logger
 from django.core.cache import cache
 from datetime import datetime, timedelta
+from .models import *
 
 # Logger Settings
 logger = get_task_logger(__name__)
@@ -36,4 +37,9 @@ def one_time_task():
 @shared_task(name='learn_celery_tutorial.user_push_scheduled_celery_task')
 def user_push_scheduled_celery_task():
     logger.info("User Pushed Celery Task is executed at ---> {}".format(datetime.now()))
-    return "User Pushed Celery Task is executed at ---> {}".format(datetime.now())
+    result = "User Pushed Celery Task is executed at ---> {}".format(datetime.now())
+
+    # Saving the TASK_RESULT in My DB, so that i can Retrieve it from VIEW
+    UserPushedTaskResult.objects.create(task_name="task_name", result=result)
+
+    return result

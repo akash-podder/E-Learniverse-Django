@@ -1,6 +1,7 @@
 from celery.result import AsyncResult
 from django.shortcuts import render
 from .tasks import *
+from .models import *
 from datetime import datetime, timedelta
 from django.http import JsonResponse, HttpResponse
 from .forms import AddNumberForm
@@ -107,6 +108,21 @@ class UserPushScheduledCeleryTask(View):
         return render(request, 'learn_celery_tutorial/user_push_scheduled_celery_view.html', context)
 
 
+
+# JavaScript AJAX will Call this Api
+class GetPeriodicTaskResult(View):
+    view_name = "get_periodic_task_result"
+    def get(self, request):
+        try:
+            task_result = UserPushedTaskResult.objects.latest('created_at')
+            context = task_result.result
+            return JsonResponse({'result': context})
+        except UserPushedTaskResult.DoesNotExist:
+            context = 'Task result not found'
+            return JsonResponse({'result': context})
+
+
+# JavaScript AJAX will Call this Api
 class CheckTaskStatusView(View):
     view_name = "check_task_status"
     def get(self, request):
