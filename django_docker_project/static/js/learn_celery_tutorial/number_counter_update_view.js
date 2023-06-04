@@ -2,7 +2,7 @@ $(document).ready(function(){
 
     function getNumberFromCache(){
         $.ajax({
-            url: document.location.origin + '/learn-celery-tutorial/get-counter-number-from-cache/',
+            url: document.location.origin + '/learn-celery-tutorial/get_counter_number_from_cache',
             dataType: 'json',
             success: function(data){
                 if(data.result == null){
@@ -29,7 +29,7 @@ $(document).ready(function(){
     }
 
     setTimeout(function() {
-        console.log('First Call to `get-counter-number-from-cache` API ');
+        console.log('First Call to `get_counter_number_from_cache` API ');
         getNumberFromCache();
     }, 3000);
 });

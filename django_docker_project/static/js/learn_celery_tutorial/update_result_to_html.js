@@ -2,11 +2,11 @@ $(document).ready(function() {
     var taskId =  result ;  // Get the task ID from the rendered context
 
     function checkTaskStatus(taskId) {
-//     console.log(document.location.origin + '/learn-celery-tutorial/check_task_status/')
+//     console.log(document.location.origin + '/learn-celery-tutorial/check_task_status')
      console.log("TaskId = ",taskId)
 
         $.ajax({
-            url: document.location.origin + '/learn-celery-tutorial/check_task_status/',
+            url: document.location.origin + '/learn-celery-tutorial/check_task_status',
 //            url: "check_task_status/",
             data: {'task_id': taskId},
             dataType: 'json',
