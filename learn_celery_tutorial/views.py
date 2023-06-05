@@ -63,7 +63,8 @@ class OneTimeTaskView(View):
         execution_time = datetime.now() + timedelta(seconds=6)  # Example: 6 seconds from now
 
         # Schedule the task to run at the desired time
-        result = one_time_task.apply_async(eta=execution_time)
+        # "eta" use korei amra 1 time EXECUTE korte parbo
+        result = type_2_of_celery_beat_task_for_one_time_task.apply_async(eta=execution_time) # "eta" argument in a task refers to the Estimated Time of Arrival.
         one_time_task_context = "one-time-task"
 
         context = {
@@ -92,7 +93,7 @@ class UserPushScheduledCeleryTask(View):
             # Create a new PeriodicTask object
             periodic_task = PeriodicTask.objects.create(
                 name='User_Periodic_Task',
-                task='learn_celery_tutorial.user_push_scheduled_celery_task',
+                task='learn_celery_tutorial.type_3_of_celery_beat_task_for_user_pushing_scheduled_celery_task_in_queue',
                 interval=interval_schedule,  # Set the task interval
                 enabled=True  # Enable the task
             )

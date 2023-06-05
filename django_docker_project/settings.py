@@ -185,7 +185,7 @@ CELERY_TASK_ROUTES = ([
 
 CELERY_BEAT_SCHEDULE = {
     'number-counter-using-celery-beat': {
-        'task': 'learn_celery_tutorial.number_counter_using_celery_beat',
+        'task': 'learn_celery_tutorial.type_1_of_celery_beat_task_for_number_counter',
         # 'schedule': crontab(minute='*/10'),
         'schedule': timedelta(seconds=6),
         'kwargs': {'number': 6},
