@@ -22,6 +22,10 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', include('travello.urls')),
     path('admin/', admin.site.urls),
+
+    # when we want DEFAULT `Login` Mechanism's we can use `django.contrib.auth.urls`
+    path('accounts/', include('django.contrib.auth.urls')),
+
     path('register/', include('register_app.urls')),
     path('flexbox-tutorial/', include('flexbox_tutorial.urls')),
     path('learn-celery-tutorial/', include('learn_celery_tutorial.urls')),

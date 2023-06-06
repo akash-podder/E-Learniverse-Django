@@ -1,0 +1,32 @@
+{% extends 'travello/index.html'%}
+
+{% block content %}
+
+    <div class="container custom-style-container">
+        <h1>DEFAULT Log-In HTML</h1>
+
+        {% if form %}
+            <!--   `novalidate` diye amra CUSTOM ERROR Message dekhate parbo     -->
+            <form action="" method="POST" novalidate>
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                        {{error}}
+                    {% endfor %}
+                {% endif %}
+
+                {% for fm_item in form %}
+                    {{ fm_item.label_tag }} {{fm_item}} {{fm_item.errors|striptags}} <br><br>
+                {% endfor %}
+
+                <input type="submit" value="Log-In">
+            </form>
+        {% endif %}
+
+        {% if msg %}
+            <h4>{{msg}}</h4>
+        {% endif %}
+    </div>
+
+{% endblock %}
