@@ -90,6 +90,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'django_docker_project.wsgi.application'
 
+DATABASE_ROUTERS = ['django_docker_project.CustomDatabaseRouter.TravelloRouterClass']
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -105,8 +107,22 @@ DATABASES = {
             'NAME': 'travello_test',
             'ENGINE': 'django.db.backends.sqlite3',
         }
+    },
 
-
+    'travello_db_2': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'OPTIONS': {
+            'options': '-c search_path={}'.format(os.getenv('DEFAULT_DB_SCHEMA'))
+        },
+        'NAME': 'e_learniverse_db_2', #'e_learniverse_db_2',
+        'USER': os.getenv('DEFAULT_DB_USER'), #'postgres',
+        'PASSWORD': os.getenv('DEFAULT_DB_PASSWORD'), #'postgres',
+        'HOST': os.getenv('DEFAULT_DB_HOST'), #'travello_db', # Service NAME in DOCKER-COMPOSE
+        'PORT': os.getenv('DEFAULT_DB_PORT'), #'5432' # The port on which the PostgreSQL container is listening
+        'TEST': {
+            'NAME': 'travello_test_2',
+            'ENGINE': 'django.db.backends.sqlite3',
+        }
     }
 }
 
