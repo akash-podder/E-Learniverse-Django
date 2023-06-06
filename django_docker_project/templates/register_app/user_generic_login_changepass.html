@@ -3,7 +3,7 @@
 {% block content %}
 
     <div class="container custom-style-container">
-        <h1>User Login</h1>
+        <h1>{{button_value}}</h1>
 
         {% if form %}
             <!--   `novalidate` diye amra CUSTOM ERROR Message dekhate parbo     -->
@@ -20,7 +20,7 @@
                     {{ fm_item.label_tag }} {{fm_item}} {{fm_item.errors|striptags}} <br><br>
                 {% endfor %}
 
-                <input type="submit" value="Log In">
+                <input type="submit" value="{{button_value}}">
             </form>
         {% endif %}
 

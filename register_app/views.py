@@ -1,9 +1,8 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views import View
-from .forms import CustomSignUpForm, CustomAuthenticationForm
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth import authenticate, login, logout
+from .forms import CustomSignUpForm, CustomAuthenticationForm, CustomPasswordChangeForm
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 
 # Create your views here.
 class SignUpCustomView(View):
@@ -31,9 +30,10 @@ class LogInCustomView(View):
         if not request.user.is_authenticated:
             form = CustomAuthenticationForm()
             context = {
+                'button_value': "LogIn",
                 'form' : form
             }
-            return render(request, 'register_app/user_login.html', context)
+            return render(request, 'register_app/user_generic_login_changepass.html', context)
 
         # User Logged ovostha ee takhe taile amra "Profile" Page ee niye jabo
         else:
@@ -50,14 +50,16 @@ class LogInCustomView(View):
                 return HttpResponseRedirect("/register/profile")
             else:
                 context = {
+                    'button_value': "LogIn",
                     'msg': "User couldn't LogIn"
                 }
-                return render(request, 'register_app/user_login.html', context)
+                return render(request, 'register_app/user_generic_login_changepass.html', context)
         else:
             context = {
+                'button_value': "LogIn",
                 'msg': form.error_messages
             }
-            return render(request, 'register_app/user_login.html', context)
+            return render(request, 'register_app/user_generic_login_changepass.html', context)
 
 class UserProfileCustomView(View):
     view_name = "user_profile"
@@ -78,3 +80,30 @@ class UserLogOutCustomView(View):
     def get(self, request):
         logout(request)
         return HttpResponseRedirect("/register/login")
+
+
+
+# Change Password with Old Password
+class UserChangePasswordCustomView(View):
+    view_name = "user_changepass"
+    def get(self, request):
+        form = CustomPasswordChangeForm(user=request.user)
+        context = {
+            'button_value': "Change Password",
+            'form': form
+        }
+        return render(request, 'register_app/user_generic_login_changepass.html', context)
+
+    def post(self, request):
+        form = CustomPasswordChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            # Password Change er Por... automatic SESSION "LOGOUT" hoye jay... ei Behavior Prevent korar jonno amra ei `update_session_auth_hash` er use korbo
+            update_session_auth_hash(request, form.user)
+            return HttpResponseRedirect("/register/profile")
+        else:
+            context = {
+                'button_value': "Change Password",
+                'msg': form.error_messages
+            }
+            return render(request, 'register_app/user_generic_login_changepass.html', context)
