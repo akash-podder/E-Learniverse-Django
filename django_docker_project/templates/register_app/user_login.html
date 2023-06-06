@@ -3,21 +3,29 @@
 {% block content %}
 
     <div class="container custom-style-container">
-        <h1>User Registration</h1>
+        <h1>User Login</h1>
 
         {% if form %}
             <!--   `novalidate` diye amra CUSTOM ERROR Message dekhate parbo     -->
-            <form action="/register/signup" method="POST" novalidate>
+            <form action="" method="POST" novalidate>
                 {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                        {{error}}
+                    {% endfor %}
+                {% endif %}
+
                 {% for fm_item in form %}
                     {{ fm_item.label_tag }} {{fm_item}} {{fm_item.errors|striptags}} <br><br>
                 {% endfor %}
-                <input type="submit" value="Sign Up">
+
+                <input type="submit" value="Log In">
             </form>
         {% endif %}
 
-        {% if success_msg %}
-            <h4>{{success_msg}}</h4>
+        {% if msg %}
+            <h4>{{msg}}</h4>
         {% endif %}
     </div>
 

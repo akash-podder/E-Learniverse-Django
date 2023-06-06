@@ -1,0 +1,25 @@
+{% extends 'travello/index.html'%}
+
+{% block content %}
+
+    <div class="container custom-style-container">
+        <h1>Profile Page</h1>
+        <h4>Welcome {{username}}</h4>
+        <a href="{% url 'user_logout' %}" style="color: black;">Log Out</a>
+<!--        {% if form %}-->
+<!--            &lt;!&ndash;   `novalidate` diye amra CUSTOM ERROR Message dekhate parbo     &ndash;&gt;-->
+<!--            <form action="/register/login" method="POST" novalidate>-->
+<!--                {% csrf_token %}-->
+<!--                {% for fm_item in form %}-->
+<!--                    {{ fm_item.label_tag }} {{fm_item}} {{fm_item.errors|striptags}} <br><br>-->
+<!--                {% endfor %}-->
+<!--                <input type="submit" value="Log In">-->
+<!--            </form>-->
+<!--        {% endif %}-->
+
+<!--        {% if msg %}-->
+<!--            <h4>{{msg}}</h4>-->
+<!--        {% endif %}-->
+    </div>
+
+{% endblock %}
