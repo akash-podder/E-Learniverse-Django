@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views import View
-from .forms import CustomSignUpForm, CustomAuthenticationForm, CustomPasswordChangeForm
+from .forms import CustomSignUpForm, CustomAuthenticationForm, CustomPasswordChangeForm, CustomSetPasswordForm
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 
 # Create your views here.
@@ -104,6 +104,31 @@ class UserChangePasswordCustomView(View):
         else:
             context = {
                 'button_value': "Change Password",
+                'msg': form.error_messages
+            }
+            return render(request, 'register_app/user_generic_login_changepass.html', context)
+
+
+
+# OLD Password "NOT" Needed
+class UserForgetPassword(View):
+    view_name = "user_changepass_without_oldpass"
+    def get(self, request):
+        form = CustomSetPasswordForm(user=request.user)
+        context = {
+            'button_value': "Set Password without Old Passoword",
+            'form': form
+        }
+        return render(request, 'register_app/user_generic_login_changepass.html', context)
+
+    def post(self, request):
+        form = CustomSetPasswordForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect("/register/login")
+        else:
+            context = {
+                'button_value': "Set Password without Old Passoword",
                 'msg': form.error_messages
             }
             return render(request, 'register_app/user_generic_login_changepass.html', context)

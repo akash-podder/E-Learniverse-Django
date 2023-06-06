@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm, SetPasswordForm
 from django import forms
 class CustomSignUpForm(UserCreationForm):
     # Overriding `password2` form from Parent Class(UserCreationForm)
@@ -17,5 +17,12 @@ class CustomSignUpForm(UserCreationForm):
 class CustomAuthenticationForm(AuthenticationForm):
     pass
 
+
+# OLD Password is Needed for Changing Pass in this Form
 class CustomPasswordChangeForm(PasswordChangeForm):
+    pass
+
+
+# OLD Password is "NOT" Needed for Changing Pass in this Form
+class CustomSetPasswordForm(SetPasswordForm):
     pass
