@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', include('travello.urls')),
     path('admin/', admin.site.urls),
+    path('register/', include('register_app.urls')),
     path('flexbox-tutorial/', include('flexbox_tutorial.urls')),
     path('learn-celery-tutorial/', include('learn_celery_tutorial.urls')),
     path('email/', include('EmailApp.urls')),

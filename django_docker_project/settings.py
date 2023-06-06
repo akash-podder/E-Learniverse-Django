@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django_celery_beat', # `App` for `CELERY_BEAT`
     'django_docker_project',
     'travello',
+    'register_app',
     'flexbox_tutorial',
     'learn_celery_tutorial',
     'EmailApp',
