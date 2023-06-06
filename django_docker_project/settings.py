@@ -155,6 +155,9 @@ CACHES = {
     }
 }
 
+# "login_required" Decorator Logged in Nah Hole jei URL ee Niye jabe... taar Value
+LOGIN_URL = '/register/login'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 

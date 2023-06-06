@@ -4,6 +4,10 @@ from django.views import View
 from .forms import CustomSignUpForm, CustomAuthenticationForm, CustomPasswordChangeForm, CustomSetPasswordForm
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
+
 # Create your views here.
 class SignUpCustomView(View):
     view_name = "sign_up"
@@ -86,6 +90,12 @@ class UserLogOutCustomView(View):
 # Change Password with Old Password
 class UserChangePasswordCustomView(View):
     view_name = "user_changepass"
+
+    # `dispatch` method decide kore REQUEST jei Object ta ashtese sheita kon TYPE(get, post, delete) er method ke Call dibe
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):  # In Django's class-based views, the dispatch() method is responsible for handling incoming requests and deciding which HTTP method to call. It is the entry point for processing requests in a class-based view.
+        return super().dispatch(*args, **kwargs)
+
     def get(self, request):
         form = CustomPasswordChangeForm(user=request.user)
         context = {
@@ -111,6 +121,7 @@ class UserChangePasswordCustomView(View):
 
 
 # OLD Password "NOT" Needed
+@method_decorator(login_required, name='dispatch')  #2nd way --> jate kore LOGIN nah takle amra LOGIN View te niye jabo... eikane `dispatch` hocce "View" Class er ekta Method
 class UserForgetPassword(View):
     view_name = "user_changepass_without_oldpass"
     def get(self, request):
