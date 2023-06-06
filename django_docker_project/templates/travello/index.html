@@ -10,9 +10,28 @@
         <li><a class="nav-link scrollto" href="create/footballclub">Create Football Club</a></li>
         <li><a class="nav-link scrollto " href="/flexbox-tutorial/horizontal">Learn FlexBox</a></li>
         <li><a class="nav-link scrollto " href="/learn-celery-tutorial/theory">Learn Celery</a></li>
-        <li><a class="nav-link scrollto " href="/register/signup">Sign Up</a></li>
-        <li><a class="nav-link scrollto " href="/register/login">Log In</a></li>
+
+        <!--  *******************Navbar  Login, LogOut, SignOut Contents *************************-->
+        {% if user.is_authenticated %}
+            <!-- User is authenticated, show authenticated content -->
+            <li class="dropdown"><a href="#"><span></span>Welcome {{ user.username }}!<i class="bi bi-chevron-down"></i></a>
+                <ul>
+                    <li><a class="nav-link scrollto" href="{% url 'user_logout' %}">Log Out</a></li>
+                </ul>
+            </li>
+        {% else %}
+            <!-- User is not authenticated, show login/register links -->
+            <li class="dropdown"><a href="#"><span></span>Sign Up/Login<i class="bi bi-chevron-down"></i></a>
+                <ul>
+                    <li><a class="nav-link scrollto " href="/register/signup">Sign Up</a></li>
+                    <li><a class="nav-link scrollto " href="/register/login">Log In</a></li>
+                </ul>
+            </li>
+        {% endif %}
+        <!-- ********************************************-->
+
     </ul>
+
 <i class="bi bi-list mobile-nav-toggle"></i>
 {% endblock %}
 
