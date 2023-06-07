@@ -1,0 +1,14 @@
+{% extends 'base.html'%}
+
+{% block content %}
+
+    <div class="container custom-style-container">
+        <h1>Send Notification</h1>
+        <!--enctype="multipart/form-data" nah dile FILE input hisave ney nah-->
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+{% endblock %}

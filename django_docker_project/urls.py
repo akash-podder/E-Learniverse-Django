@@ -27,6 +27,8 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
 
     path('register/', include('register_app.urls')),
+    path('notification/', include('notification_app.urls')),
+
     path('flexbox-tutorial/', include('flexbox_tutorial.urls')),
     path('learn-celery-tutorial/', include('learn_celery_tutorial.urls')),
     path('email/', include('EmailApp.urls')),

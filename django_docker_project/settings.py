@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django_docker_project',
     'travello',
     'register_app',
+    'notification_app',
     'flexbox_tutorial',
     'learn_celery_tutorial',
     'EmailApp',
@@ -213,6 +214,8 @@ CELERY_BEAT_SCHEDULE = {
         # 'kwargs': {'number1': 5, 'number2': 7},
     },
 }
+
+GOOGLE_APPLICATION_CREDENTIALS = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
 
 
 # MEDIA & STATIC STUFF
