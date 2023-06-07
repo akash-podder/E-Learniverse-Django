@@ -35,7 +35,7 @@ class FCMClient:
         return batch_response
 
 
-    def send_push_notification(token, title, body, data=None):
+    def send_push_notification(self, token, title, body, data=None):
         message = messaging.Message(
             notification=messaging.Notification(title=title, body=body),
             token=token,
