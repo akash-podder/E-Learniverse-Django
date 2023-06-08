@@ -6,4 +6,4 @@ class RegisteredAndroidUserSerializer(serializers.ModelSerializer):
         model = RegisteredAndroidUser
         # exclude = ('id',)
         # fields = '__all__'
-        fields = ('mobile', 'name', 'fcm_token')
+        fields = ['mobile', 'name', 'fcm_token']

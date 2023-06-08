@@ -5,11 +5,37 @@
     <div class="container custom-style-container">
         <h1>Send Notification</h1>
         <h4>{{msg}}</h4>
-        <!--enctype="multipart/form-data" nah dile FILE input hisave ney nah-->
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <button type="submit">Send</button>
-        </form>
+<!--        <form method="POST" enctype="multipart/form-data">-->
+<!--            {% csrf_token %}-->
+<!--            <button type="submit">Send</button>-->
+<!--        </form>-->
+
+        {% if user_list %}
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Mobile</th>
+                  <th>Info</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for user in user_list %}
+                <tr>
+                  <td>{{ user.name }}</td>
+                  <td>{{ user.mobile }}</td>
+                  <td>
+                      <a href="{% url 'send_android_push_notification_to_mobile_number' user.mobile %}">
+                        <button>Send</button>
+                      </a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+
+        {% endif %}
+
     </div>
 
 {% endblock %}

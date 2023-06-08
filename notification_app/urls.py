@@ -2,5 +2,6 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-    path('send_push_notification', SendAndroidPushNotificationsView.as_view(), name = SendAndroidPushNotificationsView.view_name),
+    path('registered_users_info', RegisteredUsersInfoView.as_view(), name = RegisteredUsersInfoView.view_name),
+    path('send_push_notification/<str:mobile_no>', SendAndroidPushNotificationToMobileNumberView.as_view(), name = SendAndroidPushNotificationToMobileNumberView.view_name),
 ]
