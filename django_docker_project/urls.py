@@ -35,6 +35,7 @@ urlpatterns = [
 
     # API Path of Travello
     path('api/', include('travello.api_urls')),
+    path('api/notification/', include('notification_app.api_urls')),
 ]
 
 if settings.DEBUG:
