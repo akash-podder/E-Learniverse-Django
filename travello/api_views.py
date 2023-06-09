@@ -3,14 +3,17 @@ import io
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views import View
-from rest_framework.permissions import AllowAny
-from rest_framework.views import APIView
 from django.views.generic.edit import FormView
 
 from EmailApp.forms import ReviewForm
 from .models import FootballClub, Player
 from .form import FootballClubModelForm, PlayerModelForm
 from .serializers import DestinationSerializer, PlayerSerializer
+
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAuthenticatedOrReadOnly, IsAdminUser
+from rest_framework.views import APIView
+from rest_framework import viewsets
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
@@ -125,3 +128,18 @@ def player_create(request):
 
     else:
         print("request is NOT POST")
+
+
+
+class PlayerModelViewSet(viewsets.ModelViewSet):
+    queryset = Player.objects.all()
+    serializer_class = PlayerSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    # 'gettoken/' ---> input: Username(Django Portal er Username), Password & returns `Token` & `Refresh token`
+    # 'refreshtoken/' ---> input: `Refresh token` & returns `Token`
+
+    # 1. Username & Password diye first ee 'gettoken/' call dite hui... eita 2 ta jinish return kore a) Token, b) Refresh Token
+    # 2. Normal Token er validity 5 mins & Refresh Token er Validity 1 Day
+    # 3. "Normal Token" er validity sesh huile... Refresh Token diye amra 'refreshtoken/' URL ee Call diye abr "NEW Normal Token" fetch kore niye ashi
