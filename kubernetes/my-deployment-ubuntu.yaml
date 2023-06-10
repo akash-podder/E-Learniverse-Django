@@ -16,7 +16,7 @@ spec:
       containers:
         - name: my-ubuntu-container
           image:  ubuntu
-          command: ["bin/bash", "-c", "while true; do echo Sergio Ramos is the Best; Sleep 5; done"]
+          command: ["/bin/sh", "-c", "while true; do echo 'Sergio Ramos is the Best'; sleep 5; done"]
           resources:
             limits:
               cpu: "250m"        # Set CPU limit to 250m milliCPU
