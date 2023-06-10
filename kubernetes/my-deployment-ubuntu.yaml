@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: mydeployments
 spec:
-  replicas: 2
+  replicas: 4
   selector:
     matchLabels:
       name: deployment-custom-label
@@ -19,5 +19,19 @@ spec:
           command: ["bin/bash", "-c", "while true; do echo Sergio Ramos is the Best; Sleep 5; done"]
           resources:
             limits:
-              cpu: "500m"        # Set CPU limit to 500 milliCPU
-              memory: "512Mi"    # Set memory limit to 512 Mebibytes
+              cpu: "250m"        # Set CPU limit to 250m milliCPU
+              memory: "256Mi"    # Set memory limit to 256Mi Mebibytes
+              # cpu: "1000m"       # Increase CPU limit to 1000 milliCPU (1 CPU)
+              # memory: "1Gi"      # Increase memory limit to 1 Gibibyte
+
+              #If you have 4 replicas of a Kubernetes deployment or pod, and each replica has the following resource limits:
+              # CPU limit: "1000m" (1000 milliCPU or 1 CPU)
+              # Memory limit: "1Gi" (1 Gibibyte)
+
+              # Then, the total resource consumption for all 4 replicas will be the sum of the resource limits for each replica.
+
+              # For CPU:
+              # Total CPU limit: 4 replicas * 1000m = 4000 milliCPU = 4 CPU
+
+              # For memory:
+              # Total memory limit: 4 replicas * 1Gi = 4 Gibibytes
