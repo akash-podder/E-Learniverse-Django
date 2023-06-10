@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mydeployments
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      name: deployment-custom-label
+  template:
+    metadata:
+      name: testpod
+      labels:
+        name: deployment-custom-label
+    spec:
+      containers:
+        - name: my-ubuntu-container
+          image:  ubuntu
+          command: ["bin/bash", "-c", "while true; do echo Sergio Ramos is the Best; Sleep 5; done"]
+          resources:
+            limits:
+              cpu: "500m"        # Set CPU limit to 500 milliCPU
+              memory: "512Mi"    # Set memory limit to 512 Mebibytes
