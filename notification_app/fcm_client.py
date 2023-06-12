@@ -44,3 +44,11 @@ class FCMClient:
 
         response = messaging.send(message)
         print('Successfully sent push notification:', response)
+
+    def create_push_notification_message(self, token, title, body, data=None):
+        message = messaging.Message(
+            notification=messaging.Notification(title=title, body=body),
+            token=token,
+            data=data
+        )
+        return message

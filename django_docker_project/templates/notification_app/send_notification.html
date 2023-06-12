@@ -5,10 +5,10 @@
     <div class="container custom-style-container">
         <h1>Send Notification</h1>
         <h4>{{msg}}</h4>
-<!--        <form method="POST" enctype="multipart/form-data">-->
-<!--            {% csrf_token %}-->
-<!--            <button type="submit">Send</button>-->
-<!--        </form>-->
+        <form action="{% url 'send_bulk_android_push_notifications' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <button type="submit">Send Bulk Notification</button>
+        </form>
 
         {% if user_list %}
             <table>
