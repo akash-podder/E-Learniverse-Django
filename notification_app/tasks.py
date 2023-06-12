@@ -27,7 +27,13 @@ def send_one_time_bulk_notification(serialized_page_object_list):
         message.notification = messaging.Notification(**message.notification)
         messages.append(message)
 
-    batch_response = fcm_client.send_all_message(messages)
 
-    logger.info("One-time Notification executed at ---> {}".format(datetime.now()))
-    return "One-time Notification executed at ---> {}".format(datetime.now())
+    batch_response = fcm_client.send_all_message(messages)
+    notification_record = NotificationSentRecord(total_user_count = len(batch_response.responses),
+                                  success_count = batch_response.success_count,
+                                  fail_count = batch_response.failure_count,
+                                  sent_at = datetime.now())
+    notification_record.save()
+
+    logger.info("Bulk Notification sent at ---> {}".format(notification_record.sent_at))
+    return "Bulk Notification sent at ---> {}".format(notification_record.sent_at)

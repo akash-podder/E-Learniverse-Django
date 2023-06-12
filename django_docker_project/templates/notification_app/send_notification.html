@@ -5,7 +5,7 @@
     <div class="container custom-style-container">
         <h1>Send Notification</h1>
         <h4>{{msg}}</h4>
-        <form action="{% url 'send_bulk_android_push_notifications' %}" method="POST" enctype="multipart/form-data">
+        <form action="{% url 'send_bulk_push_notifications' %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <button type="submit">Send Bulk Notification</button>
         </form>
@@ -33,7 +33,29 @@
                 {% endfor %}
               </tbody>
             </table>
+        {% endif %}
 
+        {% if notification_record_list %}
+            <table>
+              <thead>
+                <tr>
+                  <th>Total Count</th>
+                  <th>Success Count</th>
+                  <th>Fail Count</th>
+                  <th>Sent Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for record in notification_record_list %}
+                <tr>
+                  <td>{{ record.total_user_count }}</td>
+                  <td>{{ record.success_count }}</td>
+                  <td>{{ record.fail_count }}</td>
+                  <td>{{ record.sent_at }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
         {% endif %}
 
     </div>

@@ -48,8 +48,16 @@ class SendAndroidPushNotificationToMobileNumberView(View):
         return render(request, 'notification_app/send_notification.html', context)
 
 
-class SendBulkAndroidPushNotifications(View):
-    view_name = "send_bulk_android_push_notifications"
+class SendBulkPushNotifications(View):
+    view_name = "send_bulk_push_notifications"
+
+    def get(self, request):
+        notification_records = NotificationSentRecord.objects.all()
+        context = {
+            'notification_record_list': notification_records,
+        }
+        return render(request, 'notification_app/send_notification.html', context)
+
     def post(self, request):
 
         fcm_client = FCMClient()
@@ -73,8 +81,7 @@ class SendBulkAndroidPushNotifications(View):
 
         # Celery Task Serialized Object chara Parameter ee Onno kisu Receive kora nah
         # Reason hocche: caz, task gula shb Message Broker er Queue te joma hui... so Object gula Serializable hote hobe
-        # result = send_one_time_bulk_notification.apply_async(args=[serialized_messages_object_list], eta=execution_time)  # "eta" argument in a task refers to the Estimated Time of Arrival.
-        result = send_one_time_bulk_notification(serialized_messages_object_list)  # "eta" argument in a task refers to the Estimated Time of Arrival.
+        result = send_one_time_bulk_notification.apply_async(args=[serialized_messages_object_list], eta=execution_time)  # "eta" argument in a task refers to the Estimated Time of Arrival.
 
         send_one_time_notification_task_context = "Bulk Notification Sent"
         context = {
