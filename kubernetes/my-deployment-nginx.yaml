@@ -14,9 +14,12 @@ spec:
         name: deployment-custom-label
     spec:
       containers:
-        - name: my-ubuntu-container
-          image:  ubuntu
-          command: ["/bin/sh", "-c", "while true; do echo 'Sergio Ramos is the Best'; sleep 5; done"]
+        - name: my-nginx-container
+          image:  nginx
+          ports:
+            - containerPort: 80
+#          command: ["/bin/sh", "-c", "while true; do echo 'Sergio Ramos is the Best'; sleep 5; done"]
+
           resources:
             limits:
               cpu: "250m"        # Set CPU limit to 250m milliCPU
