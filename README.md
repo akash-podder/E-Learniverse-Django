@@ -37,3 +37,9 @@ Start `Celery-BEAT` in Django Project
 celery -A django_docker_project beat --loglevel=info
 ```
 
+### Run Test Cases
+Run the following command for Unit Testing
+```shell script
+python manage.py test
+```
+

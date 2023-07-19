@@ -8,7 +8,7 @@ from django.views.generic.edit import FormView
 from EmailApp.forms import ReviewForm
 from .models import FootballClub, Player
 from .form import FootballClubModelForm, PlayerModelForm
-from .serializers import DestinationSerializer, PlayerSerializer
+from .serializers import FootballClubSerializer, PlayerSerializer
 
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser

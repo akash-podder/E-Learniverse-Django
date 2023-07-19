@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import FootballClub, Player
 
-class DestinationSerializer(serializers.Serializer):
+class FootballClubSerializer(serializers.Serializer):
 
     # Id Required False karon API_response theke Data Create er somoy amra jokon is_validate call dibo jano tokon id Auto_generate hobe  .save() call dile
     id = serializers.IntegerField(required=False)

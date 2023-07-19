@@ -8,7 +8,7 @@ from django.views.generic.edit import FormView
 from EmailApp.forms import ReviewForm
 from .models import FootballClub, Player
 from .form import FootballClubModelForm, PlayerModelForm
-from .serializers import DestinationSerializer, PlayerSerializer
+from .serializers import FootballClubSerializer, PlayerSerializer
 
 from rest_framework.permissions import AllowAny, IsAuthenticated, IsAuthenticatedOrReadOnly, IsAdminUser
 from rest_framework.views import APIView
@@ -37,7 +37,7 @@ class SingleFootballClubDetailApi(APIView):
 
     def get(self, request, pk):
         club = FootballClub.objects.get(id=pk)
-        club_serialized = DestinationSerializer(club)
+        club_serialized = FootballClubSerializer(club)
         json_data = JSONRenderer().render(club_serialized.data)
 
         return HttpResponse(json_data, content_type="application/json")
@@ -53,7 +53,7 @@ class AllFootballClubsDetailApi(APIView):
     def get(self, request):
         clubs = FootballClub.objects.all()
 
-        club_serialized = DestinationSerializer(clubs, many=True)  # QuerySet er jonno "many=True" eita likha Compolsory
+        club_serialized = FootballClubSerializer(clubs, many=True)  # QuerySet er jonno "many=True" eita likha Compolsory
 
         json_data = JSONRenderer().render(club_serialized.data)
         return HttpResponse(json_data, content_type="application/json")

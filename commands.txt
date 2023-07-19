@@ -5,3 +5,6 @@ celery -A django_docker_project worker -Q my_default_queue,custom_queue
 
 # Start Celery-BEAT in Django Project
 celery -A django_docker_project beat --loglevel=info
+
+# Run Test Cases
+python manage.py test
