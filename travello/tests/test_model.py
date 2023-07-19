@@ -1,5 +1,4 @@
 import os
-
 from django.test import TestCase
 from django.core.files.uploadedfile import SimpleUploadedFile
 from travello.models import Player, FootballClub
@@ -64,7 +63,7 @@ class MyFootballClubModelTestCase(TestCase):
     def test_create_player(self):
         name = "Real Madrid"
         desc = "The Greatest Club in the World"
-        price = 211
+        price = 1000
         is_club_in_city = True
 
         club_model = FootballClub.objects.create(

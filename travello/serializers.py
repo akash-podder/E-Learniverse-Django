@@ -11,6 +11,13 @@ class FootballClubSerializer(serializers.Serializer):
     price = serializers.IntegerField(default=0)
     is_club_in_city = serializers.BooleanField(default=False)
 
+    def validate(self, attrs):
+        price = attrs.get('price')
+
+        if price < 500:
+            raise serializers.ValidationError("Football Club's Price is too low")
+        return attrs
+
 
     # This Function is used for "De-Serialization"
     def create(self, validated_data):
@@ -45,3 +52,10 @@ class PlayerSerializer(serializers.Serializer):
 
         instance.save()
         return instance
+
+    def validate(self, attrs):
+        price = attrs.get('price')
+
+        if price < 10:
+            raise serializers.ValidationError("Too low price for a World Class Player")
+        return attrs
