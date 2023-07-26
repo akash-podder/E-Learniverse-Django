@@ -60,7 +60,7 @@ class MyFootballClubModelTestCase(TestCase):
         # Delete the test image file
         os.remove(self.destroy_image_path)
 
-    def test_create_player(self):
+    def test_create_club(self):
         name = "Real Madrid"
         desc = "The Greatest Club in the World"
         price = 1000

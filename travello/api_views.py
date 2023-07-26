@@ -2,6 +2,7 @@ import io
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic.edit import FormView
 
@@ -143,3 +144,10 @@ class PlayerModelViewSet(viewsets.ModelViewSet):
     # 1. Username & Password diye first ee 'gettoken/' call dite hui... eita 2 ta jinish return kore a) Token, b) Refresh Token
     # 2. Normal Token er validity 5 mins & Refresh Token er Validity 1 Day
     # 3. "Normal Token" er validity sesh huile... Refresh Token diye amra 'refreshtoken/' URL ee Call diye abr "NEW Normal Token" fetch kore niye ashi
+
+
+# @method_decorator(ensure_csrf_cookie, name='dispatch')
+class GetCSRFToken(APIView):
+    permission_classes = [AllowAny]
+    def get(self, request):
+        return Response({'success':'CSRF Cookie Set'})
