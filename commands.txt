@@ -8,3 +8,6 @@ celery -A django_docker_project beat --loglevel=info
 
 # Run Test Cases
 python manage.py test
+
+#Run Production Type Command using Gunicorn
+gunicorn -w 4 --bind 0.0.0.0:9999 django_docker_project.wsgi

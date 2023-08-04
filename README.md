@@ -43,3 +43,9 @@ Run the following command for Unit Testing
 python manage.py test
 ```
 
+### Production Setup with Gunicorn
+Run the following command for Gunicorn Command
+```shell script
+gunicorn -w 4 --bind 0.0.0.0:9999 django_docker_project.wsgi
+```
+
