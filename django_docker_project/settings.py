@@ -48,7 +48,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Apps for Rest_Framework & Json Web Token(JWT)
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_framework_simplejwt',
+
     'django_celery_beat', # `App` for `CELERY_BEAT`
+
     'django_docker_project',
     'travello',
     'register_app',
