@@ -96,6 +96,15 @@ TEMPLATES = [
     },
 ]
 
+JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),  # Set the expiration time to 1 hour.
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+
+    "ALGORITHM": "HS256",
+    "SIGNING_KEY": JWT_SECRET_KEY,
+}
+
 WSGI_APPLICATION = 'django_docker_project.wsgi.application'
 
 DATABASE_ROUTERS = ['django_docker_project.CustomDatabaseRouter.TravelloRouterClass']
