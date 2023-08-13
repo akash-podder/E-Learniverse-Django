@@ -42,6 +42,10 @@ except UserWarning:
 # Application definition
 
 INSTALLED_APPS = [
+    # contrib.admin er upr bosano lagbe
+    # 'grappelli.dashboard',
+    # 'grappelli',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -104,6 +108,10 @@ SIMPLE_JWT = {
     "ALGORITHM": "HS256",
     "SIGNING_KEY": JWT_SECRET_KEY,
 }
+
+# GRAPPELLI configs
+GRAPPELLI_ADMIN_TITLE = 'E-Learniverse Admin'
+GRAPPELLI_INDEX_DASHBOARD = 'django_docker_project.dashboard.CustomIndexDashboard'
 
 WSGI_APPLICATION = 'django_docker_project.wsgi.application'
 
