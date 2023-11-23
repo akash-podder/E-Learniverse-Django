@@ -202,17 +202,10 @@ LOGIN_URL = '/register/login'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(os.path.dirname(__file__), 'static'),
-]
 
 # CELERY Stuffs
 #   default
@@ -241,11 +234,17 @@ CELERY_BEAT_SCHEDULE = {
 
 GOOGLE_APPLICATION_CREDENTIALS = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
 
-# MEDIA & STATIC STUFF
-STATIC_ROOT = os.path.join(BASE_DIR,'assets')
+# *** MEDIA & STATIC STUFF ***
+STATICFILES_DIRS = [
+    os.path.join(os.path.dirname(__file__), 'static'),
+]
+STATIC_URL = '/static/'
+STATIC_ROOT = os.getenv('STATIC_ROOT')
+# STATIC_ROOT = os.path.join(BASE_DIR,'assets')
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR , 'media')
+MEDIA_ROOT = os.getenv('MEDIA_ROOT')
+# MEDIA_ROOT = os.path.join(BASE_DIR , 'media')
 
 # Email Configurations
 EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')

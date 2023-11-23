@@ -96,8 +96,8 @@ local_settings.py
 *venv/
 .idea
 static.tar.gz
-assets/
 django_docker_project/templates/travello/index_old.html
 celerybeat.pid
 django_docker_project/e-learniverse-project-firebase-adminsdk.json
-/media
+assets/
+media/
