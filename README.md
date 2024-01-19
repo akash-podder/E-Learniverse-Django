@@ -1,5 +1,5 @@
 # E-Learniverse Flexbox & Other Learning Backend
-Backend application for tallykhata app
+A Django Backend application for E-Learniverse. This is a Self-Learning Project to document all my Personal leanrings in Django Framework.
 
 ## Installation guide
 Please follow standard **Django** installation guide.
