@@ -8,14 +8,14 @@ Please follow standard **Django** installation guide.
 Please follow [this docker guide](docker/docker-guide.md) to run tallykhata backend with docker. 
 First Install Docker & Docker-Compose in your System. Then run following command-
 
-DockerFile Image Command
+`DockerFile` Build & Run Command
 ```shell script
 sudo docker build --tag django-project-docker-image .
 sudo docker run --publish 8002:9998 --name my-django-web-container django-project-docker-image
 sudo docker exec -it my-django-web-container /bin/bash
 ```
 
-Docker-Compose Commands
+`Docker-Compose` Command to run all service
 ```shell script
 sudo docker-compose up --build
 sudo docker-compose run django_web_app python manage.py migrate
