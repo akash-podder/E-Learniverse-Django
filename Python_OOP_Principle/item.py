@@ -1,9 +1,11 @@
 import csv
 
-
 class Item:
     pay_rate = 0.8 # The pay rate after 20% discount
     all = []
+
+    # "__" --> this is called Dunder
+    # __init__ --> this is the Constructor of any Class
     def __init__(self, name: str, price: float, quantity=0):
         # Run validations to the received arguments
         assert price >= 0, f"Price {price} is not greater than or equal to zero!"
