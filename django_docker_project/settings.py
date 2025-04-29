@@ -134,12 +134,13 @@ DATABASES = {
         }
     },
 
+    # Settings for 2nd Database
     'travello_db_2': {
         'ENGINE': 'django.db.backends.postgresql',
         'OPTIONS': {
             'options': '-c search_path={}'.format(os.getenv('DEFAULT_DB_SCHEMA'))
         },
-        'NAME': 'e_learniverse_db_2', #'e_learniverse_db_2',
+        'NAME':  os.getenv('DB_NAME_2'), #'e_learniverse_db_2',
         'USER': os.getenv('DEFAULT_DB_USER'), #'postgres',
         'PASSWORD': os.getenv('DEFAULT_DB_PASSWORD'), #'postgres',
         'HOST': os.getenv('DEFAULT_DB_HOST'), #'travello_db', # Service NAME in DOCKER-COMPOSE
