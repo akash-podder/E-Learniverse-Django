@@ -29,7 +29,7 @@ celery -A django_docker_project worker --loglevel=info
 
 `Custom Queue` Command of Celery Worker in Django Project
 ```shell script
-celery -A django_docker_project worker -Q my_default_queue,custom_queue --loglevel=info
+celery -A django_docker_project worker -Q e_learniverse_default_queue,custom_queue --loglevel=info
 ```
 
 Start `Celery-BEAT` in Django Project
