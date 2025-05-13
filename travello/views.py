@@ -39,6 +39,7 @@ class IndexView(View):
         self.context['email_form'] = email_review_form
 
         return render(request, 'travello/index.html', self.context)
+
     def post(self, request):
         email_review_form = ReviewForm(request.POST)
 
