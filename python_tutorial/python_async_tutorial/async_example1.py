@@ -17,8 +17,8 @@ In Short → task=asyncio.create_task(ramos_fn()) → eita dewar sathe sathe “
 N.B.: “async” function er moddhei kebol “await” keyword use korte parbo… “await” dile oi POINT ee STOP ee boshe takhbe Nicher Line ee jabe Nah
 '''
 
-async def fn1():
-    task = asyncio.create_task(fn2()) # this just CREATEs the TASK & push it to the Queue So, that "Event Loop" can Run it
+async def ramos_fn1():
+    task = asyncio.create_task(ramos_fn2()) # this just CREATEs the TASK & push it to the Queue So, that "Event Loop" can Run it
     print("one")
     print('four')
     await asyncio.sleep(1)
@@ -26,10 +26,10 @@ async def fn1():
     await asyncio.sleep(1)
 
 
-async def fn2():
+async def ramos_fn2():
     print("two")
     await asyncio.sleep(1)
     print("three")
 
 
-asyncio.run(fn1())
+asyncio.run(ramos_fn1())
