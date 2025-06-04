@@ -2,9 +2,13 @@ import os
 from django.test import TestCase
 from django.core.files.uploadedfile import SimpleUploadedFile
 from travello.models import Player, FootballClub
+from django.conf import settings
 
 class MyPlayerModelTestCase(TestCase):
-    image_path = '/home/akash/PSL_Projects/Demo/Django_Telusko_Travello_Website/media/pics/players/sergio_ramos.jpg'
+    image_rel_path = 'media/pics/players/sergio_ramos.jpg'
+    image_path = os.path.join(settings.BASE_DIR, image_rel_path)
+    # image_path = '/home/akash/PSL_Projects/Demo/Django_Telusko_Travello_Website/media/pics/players/sergio_ramos.jpg'
+
     destroy_image_path = ''
     # Set up the test environment
     def setUp(self):
@@ -44,7 +48,10 @@ class MyPlayerModelTestCase(TestCase):
         self.destroy_image_path = player_model.img.path
 
 class MyFootballClubModelTestCase(TestCase):
-    image_path = '/home/akash/PSL_Projects/Demo/Django_Telusko_Travello_Website/media/pics/clubs/realmadrid.png'
+    image_rel_path = 'media/pics/clubs/realmadrid.png'
+    image_path = os.path.join(settings.BASE_DIR, image_rel_path)
+    # image_path = '/home/akash/PSL_Projects/Demo/Django_Telusko_Travello_Website/media/pics/clubs/realmadrid.png'
+
     destroy_image_path = ''
     # Set up the test environment
     def setUp(self):
