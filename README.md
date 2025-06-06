@@ -44,8 +44,21 @@ python manage.py test
 ```
 
 ### Production Setup with Gunicorn
-Run the following command for Gunicorn Command
+Run the following command for Gunicorn Command:
 ```shell script
 gunicorn -w 4 --bind 0.0.0.0:9999 django_docker_project.wsgi
 ```
+The `-w 4` flag tells Gunicorn to spawn 4 worker processes. These are not threads, but separate processes that can handle requests concurrently.
+Gunicorn documentation suggests to have:
+Gunicorn documentation suggests:
 
+`workers = 2 × (CPU cores) + 1`
+
+Now To have:
+- **4 worker processes**
+- **Each process with 2 threads**
+- **Total of 8 threads handling requests**
+
+```shell script
+gunicorn -w 4 --threads 2 --bind 0.0.0.0:9999 django_docker_project.wsgi
+```
