@@ -2,7 +2,7 @@ import asyncio
 
 # Theory
 '''
-asyncio.run(ramos_fn()) → asyncio.run → This Creates/Starts our “Event Loop” & Runs All “Coroutine” Function
+asyncio.run(ramos_fn()) → "asyncio.run" → This Creates/Starts our “Event Loop” & Runs All “Coroutine” Function
 
 “async” Keyword-wala Function === Coroutine Function
 “ramos_fn()” is a “Coroutine Function” & it returns a “Coroutine Object”
@@ -32,4 +32,5 @@ async def ramos_fn2():
     print("three")
 
 
+# This Creates/Starts our “Event Loop” & Runs All “Coroutine” Function
 asyncio.run(ramos_fn1())
