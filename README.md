@@ -2,6 +2,25 @@
 A Django Backend application for E-Learniverse. This is a Self-Learning Project to document all my Personal leanrings in Django Framework.
 
 ## Installation guide
+You do need to install Python-3.8 first. After that run following commands:
+
+```shell script
+pip install virtualenv
+virtualenv e_learniverse_env
+source ./e_learniverse_env/bin/activate
+which python
+```
+
+Then install the requirements from "requirements.txt"
+```shell script
+pip install -r requirements.txt 
+```
+
+if "pip" gives you version error run the following command:
+```shell script
+pip install "pip<24"
+```
+
 Please follow standard **Django** installation guide.
 
 ### Docker guide
