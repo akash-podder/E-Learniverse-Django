@@ -5,23 +5,33 @@ A Django Backend application for E-Learniverse. This is a Self-Learning Project 
 You do need to install Python-3.8 first. After that run following commands:
 
 ```shell script
-pip install virtualenv
-virtualenv e_learniverse_env
-source ./e_learniverse_env/bin/activate
-which python
+  pip install virtualenv
+  virtualenv e_learniverse_env
+  source ./e_learniverse_env/bin/activate
+  which python
 ```
 
 Then install the requirements from "requirements.txt"
 ```shell script
-pip install -r requirements.txt 
+  pip install -r requirements.txt 
 ```
 
 if "pip" gives you version error run the following command:
 ```shell script
-pip install "pip<24"
+  pip install "pip<24"
 ```
 
 Please follow standard **Django** installation guide.
+
+To start **Django** development server:
+```shell script
+  python manage.py runserver
+```
+
+To start **Django** development server in a Particular PORT (example: Port 9999):
+```shell script
+  python manage.py runserver 0.0.0.0:9999
+```
 
 ### Docker guide
 Please follow [this docker guide](docker/docker-guide.md) to run tallykhata backend with docker. 
