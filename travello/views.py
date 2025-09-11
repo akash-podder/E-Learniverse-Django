@@ -1,4 +1,4 @@
-import io
+import os
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
@@ -22,6 +22,7 @@ from django.conf import settings
 # Create your views here.
 
 class IndexView(View):
+
     view_name = 'index'
 
     clubs = FootballClub.objects.all()
@@ -35,8 +36,15 @@ class IndexView(View):
     }
 
     def get(self, request):
+        backend_port = request.META.get("HTTP_X_BACKEND_PORT", "unknown")
+        client_port = request.get_port()  # usually 80/443 behind nginx
+        worker_process_id = os.getpid()
+
         email_review_form = ReviewForm()
         self.context['email_form'] = email_review_form
+        self.context['backend_port'] = backend_port
+        self.context['client_port'] = client_port
+        self.context['worker_process_id'] = worker_process_id
 
         return render(request, 'travello/index.html', self.context)
 
