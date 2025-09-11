@@ -16,7 +16,7 @@ Then install the requirements from "requirements.txt"
   pip install -r requirements.txt 
 ```
 
-if "pip" gives you version error run the following command:
+if **"pip"** gives you version error run that means your Python version is okay. But your **pip** version needs to be downgraded. For that run the following command:
 ```shell script
   pip install "pip<24"
 ```
