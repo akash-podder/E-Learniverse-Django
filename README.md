@@ -16,7 +16,7 @@ Then install the requirements from "requirements.txt"
   pip install -r requirements.txt 
 ```
 
-if **"pip"** gives you version error run that means your Python version is okay. But your **pip** version needs to be downgraded. For that run the following command:
+if **"pip"** gives you version error run that means your Python version is okay. But your **pip** version needs to be downgraded and should be `<24 (less than 24)`. For that run the following command:
 ```shell script
   pip install "pip<24"
 ```
@@ -73,11 +73,13 @@ python manage.py test
 ```
 
 ### Production Setup with Gunicorn
-Run the following command for Gunicorn Command:
+Run the following command for Gunicorn Command to start Gunicorn Server with 4 worker threads with `-w 4` flag
 ```shell script
 gunicorn -w 4 --bind 0.0.0.0:9999 django_docker_project.wsgi
 ```
-The `-w 4` flag tells Gunicorn to spawn 4 worker processes. These are not threads, but separate processes that can handle requests concurrently.
+The `-w 4` flag tells Gunicorn to spawn 4 worker processes.
+
+N.B: These are not threads, but separate processes that can handle requests concurrently.
 Gunicorn documentation suggests to have:
 Gunicorn documentation suggests:
 
@@ -91,3 +93,11 @@ Now To have:
 ```shell script
 gunicorn -w 4 --threads 2 --bind 0.0.0.0:9999 django_docker_project.wsgi
 ```
+
+The reason is behind this:
+- A worker is **single-threaded** (unless you add threads).  
+- If you have *N* CPU cores and only *N* workers, then whenever a worker is blocked (e.g., waiting on I/O), its CPU core is underutilized.  
+- By setting `workers = 2 × cores + 1`, you add extra workers beyond the physical cores. This way:  
+  - While some workers are blocked, others are ready to run.  
+  - The OS scheduler can keep CPU cores busy by switching between them.  
+- The `+1` acts as a buffer to handle sudden bursts of requests without immediately queuing them.  
