@@ -1,2 +1,3 @@
 myDjangoVenv/
-*docker_commands.txt
+*.txt
+.gitignore
