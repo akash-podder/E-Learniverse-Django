@@ -1,5 +1,4 @@
 # Created by https://www.gitignore.io
-
 ### OSX ###
 .DS_Store
 .AppleDouble
@@ -7,7 +6,6 @@
 
 # Icon must end with two \r
 Icon
-
 
 # Thumbnails
 ._*
@@ -78,7 +76,6 @@ docs/_build/
 # PyBuilder
 target/
 
-
 ### Django ###
 *.log
 *.pot
@@ -101,3 +98,5 @@ celerybeat.pid
 django_docker_project/e-learniverse-project-firebase-adminsdk.json
 assets/
 media/
+
+.claude/
